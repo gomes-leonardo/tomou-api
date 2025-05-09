@@ -5,4 +5,5 @@ public class Dependent
     public string Name { get; set; } = string.Empty;
     public long CaregiverId { get; set; }
     public User Caregiver { get; set; } = null!;
+    public ICollection<Medication> Medications { get; set; } = new List<Medication>();
 }

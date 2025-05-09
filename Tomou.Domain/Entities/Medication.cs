@@ -1,4 +1,5 @@
-﻿using Tomou.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Tomou.Domain.Entities;
 
 public class Medication
 {
@@ -9,6 +10,5 @@ public class Medication
 
     public long DependentId { get; set; }
     public Dependent Dependent { get; set; } = null!;
-
     public ICollection<MedicationLog> Logs { get; set; } = new List<MedicationLog>();
 }
