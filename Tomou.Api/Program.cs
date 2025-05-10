@@ -1,4 +1,5 @@
 
+using Tomou.Api.Filter;
 using Tomou.Application;
 using Tomou.Infrastructure;
 using Tomou.Infrastructure.Migrations;
@@ -11,7 +12,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ExceptionFilter>();
+});
+
 var app = builder.Build();
+
 
 if (app.Environment.IsDevelopment())
 {

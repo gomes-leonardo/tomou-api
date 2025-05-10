@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Tomou.Application\Tomou.Application.csproj" />
     <ProjectReference Include="..\Tomou.Communication\Tomou.Communication.csproj" />
+    <ProjectReference Include="..\Tomou.Exception\Tomou.Exception.csproj" />
     <ProjectReference Include="..\Tomou.Infrastructure\Tomou.Infrastructure.csproj" />
   </ItemGroup>
 

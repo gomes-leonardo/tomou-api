@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Tomou.Application.UseCases.User;
+using Tomou.Application.UseCases.User.Register;
 
 namespace Tomou.Application;
 public static class DependencyInjectionExtension

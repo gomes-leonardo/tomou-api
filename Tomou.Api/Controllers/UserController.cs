@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Tomou.Application.UseCases.User;
+using Tomou.Application.UseCases.User.Register;
 using Tomou.Communication.Requests.User;
 using Tomou.Communication.Responses.User;
 
