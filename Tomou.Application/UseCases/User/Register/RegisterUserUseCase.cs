@@ -9,7 +9,10 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     public Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
     {
         Validator(request);
-        throw new NotImplementedException();
+        return Task.FromResult(new ResponseRegisteredUserJson
+        {
+            Name = request.Name,
+        });
     }
 
     private void Validator(RequestRegisterUserJson request)
