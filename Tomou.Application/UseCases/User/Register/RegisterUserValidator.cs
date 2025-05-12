@@ -9,6 +9,7 @@ public class RegisterUserValidator : AbstractValidator<RequestRegisterUserJson>
     {
         RuleFor(u => u.Name).NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_NAME);
         RuleFor(u => u.Email)
+            .Cascade(CascadeMode.Stop)
             .NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_EMAIL)
             .EmailAddress().WithMessage(ResourceErrorMessages.INVALID_EMAIL);
 

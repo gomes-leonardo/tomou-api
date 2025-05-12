@@ -9,6 +9,7 @@ public class PasswordValidator<T> : AbstractValidator<T>
     public PasswordValidator(System.Linq.Expressions.Expression<Func<T, string>> passwordSelector)
     {
         RuleFor(passwordSelector)
+            .Cascade(CascadeMode.Stop)
             .NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_PASSWORD)
             .Matches(PasswordRegex).WithMessage(ResourceErrorMessages.INVALID_PASSWORD);
     }
