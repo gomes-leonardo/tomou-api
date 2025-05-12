@@ -3,7 +3,9 @@ using Tomou.Api.Filter;
 using Tomou.Application;
 using Tomou.Infrastructure;
 using Tomou.Infrastructure.Migrations;
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -43,3 +45,5 @@ async Task MigrateDatabase()
 
     await DataBaseMigration.MigrateDatabase(scope.ServiceProvider);
 }
+
+public partial class Program { }
