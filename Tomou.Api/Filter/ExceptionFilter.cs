@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Net;
 using Tomou.Communication.Responses;
 using Tomou.Exception;
@@ -24,6 +25,7 @@ public class ExceptionFilter : IExceptionFilter
 
     private void HandleProjectException(ExceptionContext context)
     {
+
         if(context.Exception is TomouException tomouException)
         {
             var errorResponse = new ResponseErrorJson(tomouException.GetErrors());
@@ -34,7 +36,7 @@ public class ExceptionFilter : IExceptionFilter
 
     private void HandleProjectUnknowError(ExceptionContext context)
     {
-        
+
         var errorResponse = new ResponseErrorJson(ResourceErrorMessages.UNKNOWN_ERROR);
 
         context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;

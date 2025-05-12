@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Tomou.Communication.Requests.User;
+using Tomou.Communication.Responses.User;
 using Tomou.Domain.Entities;
 
 namespace Tomou.Application.AutoMapper;
@@ -16,7 +17,7 @@ public class AutoMapping : Profile
     }
     private void EntityToResponse()
     {
-        CreateMap<User, RequestRegisterUserJson>();
+        CreateMap<User, ResponseRegisteredUserJson>();
 
     }
 }
