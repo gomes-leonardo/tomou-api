@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Tomou.Communication.Requests.User;
 using Tomou.Communication.Responses.User;
+using Tomou.Domain.Repositories.UnitOfWork;
 using Tomou.Domain.Repositories.User;
 using Tomou.Exception.ExceptionsBase;
 
@@ -9,14 +10,24 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 {
     private readonly IUserReadOnlyRepository _readRepository;
     private readonly IUserWriteOnlyRepository _writeRepository;
-    public RegisterUserUseCase(IUserReadOnlyRepository readRepository, IUserWriteOnlyRepository writeRepository)
+    private readonly IUnitOfWork _unitOfWork;
+    public RegisterUserUseCase(IUserReadOnlyRepository readRepository, IUserWriteOnlyRepository writeRepository, IUnitOfWork unitOfWork)
     {
         _readRepository = readRepository;
         _writeRepository = writeRepository;
+        _unitOfWork = unitOfWork;
+
     }
     public Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
     {
         Validator(request);
+        var entity = new RequestRegisterUserJson
+        {
+            Email = request.Email,
+            Name = request.Name,
+            Password = request.Password,
+        };
+        var result = _writeRepository.Add(entity);
         return Task.FromResult(new ResponseRegisteredUserJson
         {
             Name = request.Name,
