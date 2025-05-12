@@ -3,7 +3,7 @@ using Tomou.Application.UseCases.User.Register;
 using Tomou.Exception;
 using Tomou.TestUtils.Users.Register.Requests;
 
-namespace Tomou.UnitTests.Users.Register;
+namespace Tomou.UnitTests.Validators.Users.Register;
 public class RegisterUserValidatorTest
 {
     [Fact]
@@ -82,8 +82,8 @@ public class RegisterUserValidatorTest
 
     [Theory]
     [InlineData("Password123")]
-    [InlineData("password!")]      
-    [InlineData("Pass1234")]        
+    [InlineData("password!")]
+    [InlineData("Pass1234")]
 
     public void Error_Password_Invalid(string password)
     {
