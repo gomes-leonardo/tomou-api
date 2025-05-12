@@ -4,7 +4,7 @@ using Tomou.Domain.Repositories.User;
 using Tomou.Infrastructure.DataAccess;
 
 namespace Tomou.Infrastructure.Repositories;
-internal class UserRepository : IUserWriteOnlyRepository
+internal class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepository
 {
     private readonly TomouDbContext _dbContext;
     public UserRepository(TomouDbContext dbContext)
@@ -14,5 +14,10 @@ internal class UserRepository : IUserWriteOnlyRepository
     public async Task Add(User user)
     {
         await _dbContext.AddAsync(user);
+    }
+
+    public async Task<bool> ExistsByEmailAsync(string email)
+    {
+        return await _dbContext.Users.AnyAsync(u => u.Email == email);
     }
 }

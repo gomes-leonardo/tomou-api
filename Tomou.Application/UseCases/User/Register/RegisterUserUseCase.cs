@@ -1,11 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Tomou.Communication.Requests.User;
 using Tomou.Communication.Responses.User;
+using Tomou.Domain.Repositories.User;
 using Tomou.Exception.ExceptionsBase;
 
 namespace Tomou.Application.UseCases.User.Register;
 public class RegisterUserUseCase : IRegisterUserUseCase
 {
+    private readonly IUserReadOnlyRepository _readRepository;
+    private readonly IUserWriteOnlyRepository _writeRepository;
+    public RegisterUserUseCase(IUserReadOnlyRepository readRepository, IUserWriteOnlyRepository writeRepository)
+    {
+        _readRepository = readRepository;
+        _writeRepository = writeRepository;
+    }
     public Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
     {
         Validator(request);
