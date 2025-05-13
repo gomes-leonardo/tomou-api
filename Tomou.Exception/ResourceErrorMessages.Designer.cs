@@ -115,6 +115,15 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O campo &quot;cuidador&quot; deve ser preenchido..
+        /// </summary>
+        public static string ISCAREGIVER_REQUIRED {
+            get {
+                return ResourceManager.GetString("ISCAREGIVER_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Erro desconhecido..
         /// </summary>
         public static string UNKNOWN_ERROR {

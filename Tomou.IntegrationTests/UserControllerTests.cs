@@ -19,7 +19,8 @@ public class UserControllerTests : IClassFixture<WebApplicationFactory<Program>>
         {
             name = "Leonardo",
             email,
-            password = "!Senha123"
+            password = "!Senha123",
+            isCaregiver = true
         };
 
         var content = new StringContent
@@ -44,7 +45,8 @@ public class UserControllerTests : IClassFixture<WebApplicationFactory<Program>>
         {
             name = "Leonardo",
             email,
-            password = "!Senha123"
+            password = "!Senha123",
+            isCaregiver = true
         };
 
         var content = new StringContent

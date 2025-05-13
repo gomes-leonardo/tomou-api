@@ -97,4 +97,16 @@ public class RegisterUserValidatorTest
         error.ShouldSatisfyAllConditions(e => e.ErrorMessage.ShouldBe(ResourceErrorMessages.INVALID_PASSWORD));
     }
 
+    [Theory]
+    [InlineData(false)]
+    public void IsCaregiver_False(bool isCaregiver)
+    {
+        var validator = new RegisterUserValidator();
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.IsCaregiver = isCaregiver;
+
+        var result = validator.Validate(request);
+        result.IsValid.ShouldBeTrue();
+    }
+
 }

@@ -135,6 +135,9 @@
   <data name="INVALID_PASSWORD" xml:space="preserve">
     <value>A senha deve conter no mínimo 8 caracteres, incluindo ao menos 1 letra maiúscula e 1 caractere especial (ex: ! @ # $ %).</value>
   </data>
+  <data name="ISCAREGIVER_REQUIRED" xml:space="preserve">
+    <value>O campo "cuidador" deve ser preenchido.</value>
+  </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erro desconhecido.</value>
   </data>
