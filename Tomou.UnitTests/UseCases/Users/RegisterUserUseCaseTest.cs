@@ -2,7 +2,7 @@
 using Moq;
 using Shouldly;
 using Tomou.Application.UseCases.User.Register;
-using Tomou.Communication.Responses.User;
+using Tomou.Communication.Responses.User.Register;
 using Tomou.Domain.Entities;
 using Tomou.Domain.Repositories.UnitOfWork;
 using Tomou.Domain.Repositories.User;

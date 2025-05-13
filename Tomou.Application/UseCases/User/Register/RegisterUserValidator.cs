@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Tomou.Communication.Requests.User;
+using Tomou.Communication.Requests.User.Register;
 using Tomou.Exception;
 
 namespace Tomou.Application.UseCases.User.Register;

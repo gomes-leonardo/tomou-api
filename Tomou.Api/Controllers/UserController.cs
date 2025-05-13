@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Tomou.Application.UseCases.User.Register;
-using Tomou.Communication.Requests.User;
-using Tomou.Communication.Responses.User;
+using Tomou.Communication.Requests.User.Register;
+using Tomou.Communication.Responses.User.Register;
 
 namespace Tomou.Api.Controllers;
 [Route("api/[controller]")]

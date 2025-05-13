@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tomou.Domain.Entities;
 using Tomou.Domain.Repositories.User;
+using Tomou.Domain.Repositories.User.Register;
 using Tomou.Infrastructure.DataAccess;
 
 namespace Tomou.Infrastructure.Repositories;

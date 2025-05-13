@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Tomou.Communication.Requests.User;
-using Tomou.Communication.Responses.User;
+using Tomou.Communication.Requests.User.Register;
+using Tomou.Communication.Responses.User.Register;
 using Tomou.Domain.Entities;
 
 namespace Tomou.Application.AutoMapper;

@@ -1,5 +1,5 @@
-﻿using Tomou.Communication.Requests.User;
-using Bogus;
+﻿using Bogus;
+using Tomou.Communication.Requests.User.Register;
 
 namespace Tomou.TestUtils.Users.Register.Requests;
 public static class RequestRegisterUserJsonBuilder
