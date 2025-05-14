@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Tomou.Application.UseCases.User.Login;
 using Tomou.Communication.Requests.User.Login;
 using Tomou.Communication.Responses;
 using Tomou.Communication.Responses.User.Login;
@@ -11,9 +12,9 @@ public class AuthController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(ResponseLoggedUserJson), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Login(RequestLoginUserJson request)
+    public async Task<IActionResult> Login(RequestLoginUserJson request, IDoLoginUseCase useCase)
     {
-
-        return Ok();
+        var result = await useCase.Execute(request);
+        return Ok(result);
     }
 }

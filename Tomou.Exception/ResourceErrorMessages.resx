@@ -129,6 +129,9 @@
   <data name="EMPTY_PASSWORD" xml:space="preserve">
     <value>Senha não pode ser vazia.</value>
   </data>
+  <data name="INVALID_CREDENTIALS" xml:space="preserve">
+    <value>E-mail ou senha inválidos.</value>
+  </data>
   <data name="INVALID_EMAIL" xml:space="preserve">
     <value>E-mail inválido. Utilize um formato válido como exemplo@dominio.com.</value>
   </data>

@@ -97,6 +97,15 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a E-mail ou senha inválidos..
+        /// </summary>
+        public static string INVALID_CREDENTIALS {
+            get {
+                return ResourceManager.GetString("INVALID_CREDENTIALS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a E-mail inválido. Utilize um formato válido como exemplo@dominio.com..
         /// </summary>
         public static string INVALID_EMAIL {

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tomou.Domain.Entities;
 using Tomou.Domain.Repositories.User;
-using Tomou.Domain.Repositories.User.Register;
 using Tomou.Infrastructure.DataAccess;
 
 namespace Tomou.Infrastructure.Repositories;
@@ -20,5 +19,10 @@ internal class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepositor
     public async Task<bool> ExistsByEmailAsync(string email)
     {
         return await _dbContext.Users.AnyAsync(u => u.Email == email);
+    }
+
+    public async Task<User?> GetUserByEmail(string email)
+    {
+        return await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
     }
 }

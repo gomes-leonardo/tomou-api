@@ -8,6 +8,11 @@ using Tomou.Domain.Security;
 namespace Tomou.Infrastructure.Security;
 internal class Encrypter : IEncrypter
 {
+    public bool Compare(string password, string hashedPassword)
+    {
+        return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+    }
+
     public string Encrypt(string password)
     {
         return BCrypt.Net.BCrypt.HashPassword(password);
