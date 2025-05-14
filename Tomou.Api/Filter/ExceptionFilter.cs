@@ -30,7 +30,10 @@ public class ExceptionFilter : IExceptionFilter
         {
             var errorResponse = new ResponseErrorJson(tomouException.GetErrors());
             context.HttpContext.Response.StatusCode = tomouException.StatusCode;
-            context.Result = new BadRequestObjectResult(errorResponse);
+            context.Result = new ObjectResult(errorResponse)
+            {
+                StatusCode = tomouException.StatusCode
+            };
         }
     }
 

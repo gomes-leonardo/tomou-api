@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
+﻿using Bogus;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Shouldly;
 
-namespace Tomou.IntegrationTests;
+namespace Tomou.IntegrationTests.Controllers;
 public class UserControllerTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient _httpClient;
@@ -14,10 +14,12 @@ public class UserControllerTests : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public async Task ShouldRegisterUser_WhenDataIsValid()
     {
-        var email = $"leonardo{Guid.NewGuid()}@email.com";
+        var faker = new Faker("pt_BR");
+        var name = faker.Name.FullName();
+        var email = faker.Internet.Email(name);
         var request = new
         {
-            name = "Leonardo",
+            name,
             email,
             password = "!Senha123",
             isCaregiver = true
@@ -33,17 +35,19 @@ public class UserControllerTests : IClassFixture<WebApplicationFactory<Program>>
 
         var response = await _httpClient.PostAsync("/api/user", content);
         var json = await response.Content.ReadAsStringAsync();
-        json.ShouldContain("leonardo");
-        response.StatusCode.ShouldBe(System.Net.HttpStatusCode.Created);
+        json.ShouldContain(name);
+        response.StatusCode.ShouldBe(HttpStatusCode.Created);
     }
 
     [Fact]
     public async Task ShouldReturnBadRequest_WhenEmailAlreadyExists()
     {
-        var email = $"leonardo{Guid.NewGuid()}@email.com";
+        var faker = new Faker("pt_BR");
+        var name = faker.Name.FullName();
+        var email = faker.Internet.Email(name);
         var request = new
         {
-            name = "Leonardo",
+            name,
             email,
             password = "!Senha123",
             isCaregiver = true
@@ -57,7 +61,7 @@ public class UserControllerTests : IClassFixture<WebApplicationFactory<Program>>
         );
 
         var firstResponse = await _httpClient.PostAsync("/api/user", content);
-        firstResponse.StatusCode.ShouldBe(System.Net.HttpStatusCode.Created);
+        firstResponse.StatusCode.ShouldBe(HttpStatusCode.Created);
 
         var duplicatedContent = new StringContent
         (
@@ -67,7 +71,7 @@ public class UserControllerTests : IClassFixture<WebApplicationFactory<Program>>
         );
 
         var secondResponse = await _httpClient.PostAsync("/api/user", duplicatedContent);
-        secondResponse.StatusCode.ShouldBe(System.Net.HttpStatusCode.BadRequest);
+        secondResponse.StatusCode.ShouldBe(HttpStatusCode.Conflict);
 
 
     }
