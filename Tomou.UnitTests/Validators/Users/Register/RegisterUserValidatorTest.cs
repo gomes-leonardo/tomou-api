@@ -37,6 +37,7 @@ public class RegisterUserValidatorTest
     [Theory]
     [InlineData("email.com")]
     [InlineData("email@")]
+    [InlineData("@email.com")]
     public void Error_Email_Invalid(string email)
     {
         var validator = new RegisterUserValidator();
@@ -100,6 +101,18 @@ public class RegisterUserValidatorTest
     [Theory]
     [InlineData(false)]
     public void IsCaregiver_False(bool isCaregiver)
+    {
+        var validator = new RegisterUserValidator();
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.IsCaregiver = isCaregiver;
+
+        var result = validator.Validate(request);
+        result.IsValid.ShouldBeTrue();
+    }
+
+    [Theory]
+    [InlineData(true)]
+    public void IsCaregiver_True(bool isCaregiver)
     {
         var validator = new RegisterUserValidator();
         var request = RequestRegisterUserJsonBuilder.Build();

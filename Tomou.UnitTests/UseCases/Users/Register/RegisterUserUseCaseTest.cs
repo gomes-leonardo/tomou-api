@@ -10,7 +10,7 @@ using Tomou.Domain.Security;
 using Tomou.Exception.ExceptionsBase;
 using Tomou.TestUtils.Users.Register.Requests;
 
-namespace Tomou.UnitTests.UseCases.Users;
+namespace Tomou.UnitTests.UseCases.Users.Register;
 public class RegisterUserUseCaseTest
 {
     [Fact]
