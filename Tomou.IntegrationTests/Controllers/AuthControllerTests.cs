@@ -1,6 +1,8 @@
 ﻿using Bogus;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Shouldly;
+using System.Text.Json;
+using Tomou.Communication.Responses.User.Login;
 
 namespace Tomou.IntegrationTests.Controllers;
 public class AuthControllerTests : IClassFixture<WebApplicationFactory<Program>>
@@ -46,11 +48,19 @@ public class AuthControllerTests : IClassFixture<WebApplicationFactory<Program>>
             "application/json"
         );
 
-        var response = await _httpClient.PostAsync("api/Auth", loginContent);
-        var json = await response.Content.ReadAsStringAsync();
-        response.StatusCode.ShouldBe(HttpStatusCode.OK);
-        json.ShouldContain(name);
 
+        var loginResponse = await _httpClient.PostAsync("api/Auth", loginContent);
+
+        loginResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+
+        var loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+
+        var responseJson = JsonSerializer.Deserialize<ResponseLoggedUserJson>(loginResponseBody, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        });
+
+        loginResponseBody.ShouldContain("token", Case.Sensitive);
     }
 
     [Fact]
