@@ -3,7 +3,7 @@ using Shouldly;
 using Tomou.Application.UseCases.User.Login;
 using Tomou.Domain.Entities;
 using Tomou.Domain.Repositories.User;
-using Tomou.Domain.Security;
+using Tomou.Domain.Security.Crypthography;
 using Tomou.Exception.ExceptionsBase;
 using Tomou.TestUtils.Users.Login.Requests;
 

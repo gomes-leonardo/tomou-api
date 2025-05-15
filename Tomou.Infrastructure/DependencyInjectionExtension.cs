@@ -3,11 +3,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tomou.Domain.Repositories.UnitOfWork;
 using Tomou.Domain.Repositories.User;
-using Tomou.Domain.Security;
+using Tomou.Domain.Security.Crypthography;
+using Tomou.Domain.Security.Tokens;
 using Tomou.Infrastructure.DataAccess;
 using Tomou.Infrastructure.DataAccess.UnitOfWork;
 using Tomou.Infrastructure.Repositories;
-using Tomou.Infrastructure.Security;
+using Tomou.Infrastructure.Security.Cryptography;
+using Tomou.Infrastructure.Security.Tokens;
 
 namespace Tomou.Infrastructure;
 public static class DependencyInjectionExtension 
@@ -16,6 +18,7 @@ public static class DependencyInjectionExtension
     {
         AddDbContext(services, configuration);
         AddRepositories(services);
+        AddToken(services, configuration);
     }
 
     private static void AddRepositories(IServiceCollection services)
@@ -34,4 +37,18 @@ public static class DependencyInjectionExtension
 
         services.AddDbContext<TomouDbContext>(config => config.UseMySql(connectionString, serverVersion));
     }
+
+    private static void AddToken(IServiceCollection services, IConfiguration configuration)
+    {
+        var secretKey = configuration["Jwt:SecretKey"];
+
+        if (string.IsNullOrWhiteSpace(secretKey))
+            throw new ArgumentException("JWT secret key is missing in configuration.");
+        if (!int.TryParse(configuration["Jwt:ExpirationMinutes"], out var expirationMinutes))
+            throw new ArgumentException("JWT expiration time is missing or invalid.");
+
+        services.AddScoped<IAccessTokenGenerator>(_ =>
+            new JwtTokenGenerator(expirationMinutes, secretKey));
+    }
+
 }

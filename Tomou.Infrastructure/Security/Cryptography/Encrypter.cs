@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tomou.Domain.Security;
+using Tomou.Domain.Security.Crypthography;
 
-namespace Tomou.Infrastructure.Security;
+namespace Tomou.Infrastructure.Security.Cryptography;
 internal class Encrypter : IEncrypter
 {
     public bool Compare(string password, string hashedPassword)

@@ -5,7 +5,7 @@ using Tomou.Communication.Responses.User.Register;
 using Tomou.Domain.Entities;
 using Tomou.Domain.Repositories.UnitOfWork;
 using Tomou.Domain.Repositories.User;
-using Tomou.Domain.Security;
+using Tomou.Domain.Security.Crypthography;
 using Tomou.Exception.ExceptionsBase;
 
 namespace Tomou.Application.UseCases.User.Register;
