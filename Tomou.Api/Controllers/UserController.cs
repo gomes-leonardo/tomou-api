@@ -17,3 +17,5 @@ public class UserController : ControllerBase
         return Created(string.Empty, result);
     }
 }
+
+

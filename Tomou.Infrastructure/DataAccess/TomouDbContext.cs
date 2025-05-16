@@ -2,7 +2,7 @@
 using Tomou.Domain.Entities;
 
 namespace Tomou.Infrastructure.DataAccess;
-internal class TomouDbContext : DbContext
+public class TomouDbContext : DbContext
 {
     public TomouDbContext(DbContextOptions options) : base(options) { }
 
@@ -10,6 +10,8 @@ internal class TomouDbContext : DbContext
     public DbSet<Dependent> Dependents => Set<Dependent>();
     public DbSet<Medication> Medications => Set<Medication>();
     public DbSet<MedicationLog> MedicationLogs => Set<MedicationLog>();
+
+    public DbSet<PasswordResetToken> PasswordResetTokens => Set<PasswordResetToken>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -19,6 +21,9 @@ internal class TomouDbContext : DbContext
             entity.HasMany(u => u.Dependents)
                 .WithOne(d => d.Caregiver)
                 .HasForeignKey(d => d.CaregiverId);
+            entity.HasMany(u => u.PasswordResetTokens)
+                .WithOne(p => p.User)
+                .HasForeignKey(p => p.UserId);
         });
 
         modelBuilder.Entity<Dependent>(entity =>
@@ -40,6 +45,26 @@ internal class TomouDbContext : DbContext
         modelBuilder.Entity<MedicationLog>(entity =>
         {
             entity.HasKey(l => l.Id);
+        });
+
+        modelBuilder.Entity<PasswordResetToken>(entity =>
+        {
+            entity.HasKey(p => p.Id);
+
+            entity.Property(p => p.Token)
+                  .IsRequired()
+                  .HasMaxLength(200);
+
+            entity.Property(p => p.ExpiresAt)
+                  .IsRequired();
+
+            entity.Property(p => p.Used)
+                  .HasDefaultValue(false);
+
+            entity.HasOne(p => p.User)
+                  .WithMany(u => u.PasswordResetTokens) 
+                  .HasForeignKey(p => p.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
         });
     }
 
