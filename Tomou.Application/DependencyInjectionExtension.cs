@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Tomou.Application.AutoMapper;
+using Tomou.Application.UseCases.User.ForgotPassword;
 using Tomou.Application.UseCases.User.Login;
 using Tomou.Application.UseCases.User.Register;
 
@@ -16,6 +17,7 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
+        services.AddScoped<IForgotPasswordUseCase, ForgotPasswordUseCase>();
     }
 
     private static void AddAutoMapper(IServiceCollection services)

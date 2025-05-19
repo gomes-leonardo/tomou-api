@@ -12,7 +12,7 @@ public class AuthController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(ResponseLoggedUserJson), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Login(RequestLoginUserJson request, IDoLoginUseCase useCase)
+    public async Task<IActionResult> Login([FromBody] RequestLoginUserJson request, [FromServices] IDoLoginUseCase useCase)
     {
         var result = await useCase.Execute(request);
         return Ok(result);

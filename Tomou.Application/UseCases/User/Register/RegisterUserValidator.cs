@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Tomou.Application.UseCases.User.Validators.Common;
 using Tomou.Communication.Requests.User.Register;
 using Tomou.Exception;
 
@@ -10,7 +11,7 @@ public class RegisterUserValidator : AbstractValidator<RequestRegisterUserJson>
         RuleFor(u => u.Name).NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_NAME);
 
 
-        Include(new EmailValidator<RequestRegisterUserJson>(x => x.Email));
+        Include(new EmailFieldValidator<RequestRegisterUserJson>(x => x.Email));
         Include(new PasswordValidator<RequestRegisterUserJson>(x => x.Password));
     }
 }
