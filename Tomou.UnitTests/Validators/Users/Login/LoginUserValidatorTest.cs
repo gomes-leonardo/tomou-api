@@ -7,7 +7,7 @@ using Tomou.TestUtils.Users.Login.Requests;
 using Tomou.TestUtils.Users.Register.Requests;
 
 namespace Tomou.UnitTests.Validators.Users.Login;
-public class LoginUserValidator
+public class LoginUserValidatorTest
 {
     [Fact]
     public void Sucess()
