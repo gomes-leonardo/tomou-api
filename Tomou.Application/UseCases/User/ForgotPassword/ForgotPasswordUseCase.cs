@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
+using System.Text;
 using Tomou.Application.Services.Email;
 using Tomou.Application.Validators.User;
 using Tomou.Communication.Requests.User.ForgotPassword;
@@ -39,7 +41,7 @@ public class ForgotPasswordUseCase : IForgotPasswordUseCase
             return;
         }
 
-        var token = Guid.NewGuid().ToString("N");
+        var token = GenerateAlphanumericToken(5);
         var expiresAt = DateTime.UtcNow.AddHours(1);
 
         var passwordToken = new PasswordResetToken
@@ -59,6 +61,21 @@ public class ForgotPasswordUseCase : IForgotPasswordUseCase
             $"Use este token para redefinir sua senha: {token}"
         );
 
+    }
+
+    private static string GenerateAlphanumericToken(int length)
+    {
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        var data = new byte[length];
+        using var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(data);
+
+        var sb = new StringBuilder(length);
+        foreach (var b in data)
+        {
+            sb.Append(chars[b % chars.Length]);
+        }
+        return sb.ToString();
     }
 
     private void Validator(RequestForgotPasswordJson request)
