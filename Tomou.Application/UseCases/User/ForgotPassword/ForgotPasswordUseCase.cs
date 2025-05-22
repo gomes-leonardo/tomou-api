@@ -41,6 +41,9 @@ public class ForgotPasswordUseCase : IForgotPasswordUseCase
             return;
         }
 
+        await _passwordResetTokenRepository.DeleteByUserId(user.Id);
+        await _unitOfWork.Commit();
+
         var token = GenerateAlphanumericToken(5);
         var expiresAt = DateTime.UtcNow.AddHours(1);
 

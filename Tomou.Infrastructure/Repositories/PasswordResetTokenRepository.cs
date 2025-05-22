@@ -30,4 +30,18 @@ internal class PasswordResetTokenRepository : IPasswordResetTokenRepository
         return Task.CompletedTask;
     }
 
+    public async Task DeleteByUserId(long userId)
+    {
+        var tokens = _dbContext.PasswordResetTokens
+                     .Where(t => t.UserId == userId);
+        _dbContext.PasswordResetTokens.RemoveRange(tokens);
+
+        await Task.CompletedTask;
+    }
+
+    public Task Delete(PasswordResetToken token)
+    {
+        _dbContext.PasswordResetTokens.Remove(token);
+        return Task.CompletedTask;
+    }
 }

@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Tomou.Application.UseCases.User.ForgotPassword;
 using Tomou.Application.UseCases.User.Register;
-using Tomou.Communication.Requests.User.ForgotPassword;
 using Tomou.Communication.Requests.User.Register;
 using Tomou.Communication.Responses;
 using Tomou.Communication.Responses.User.Register;
@@ -22,15 +19,7 @@ public class UserController : ControllerBase
     }
     
 
-    [HttpPost("forgot-password")]
-
-    public async Task<IActionResult> ForgotPassword(
-        [FromBody] RequestForgotPasswordJson request,
-        [FromServices] IForgotPasswordUseCase useCase)
-    {
-        await useCase.Execute(request);
-        return NoContent();
-    }
+    
 }
 
 
