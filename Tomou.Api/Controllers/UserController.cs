@@ -9,7 +9,7 @@ namespace Tomou.Api.Controllers;
 [ApiController]
 public class UserController : ControllerBase
 {
-    [HttpPost]
+    [HttpPost("register")]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
     public async Task<IActionResult> Register([FromBody] RequestRegisterUserJson request, [FromServices] IRegisterUserUseCase useCase)

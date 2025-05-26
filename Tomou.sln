@@ -20,15 +20,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{9425E4BB-9208-47FC-AAD1-6411E17EE381}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		appsettings.Testing.json = appsettings.Testing.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomou.Api", "Tomou.Api\Tomou.Api.csproj", "{2743B155-1D43-4A82-A6DD-21EBDEB15E7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tomou.UnitTests", "Tomou.UnitTests\Tomou.UnitTests.csproj", "{C115E484-2D0E-48AD-A74F-2FEC52D52B88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomou.UnitTests", "Tomou.UnitTests\Tomou.UnitTests.csproj", "{C115E484-2D0E-48AD-A74F-2FEC52D52B88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tomou.TestUtils", "Tomou.TestUtils\Tomou.TestUtils.csproj", "{ACD0F70A-F4D2-45D8-8711-930D68C65B82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomou.TestUtils", "Tomou.TestUtils\Tomou.TestUtils.csproj", "{ACD0F70A-F4D2-45D8-8711-930D68C65B82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tomou.IntegrationTests", "Tomou.IntegrationTests\Tomou.IntegrationTests.csproj", "{82113447-E17C-4393-A30C-CC5E94F4B4C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomou.IntegrationTests", "Tomou.IntegrationTests\Tomou.IntegrationTests.csproj", "{82113447-E17C-4393-A30C-CC5E94F4B4C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
