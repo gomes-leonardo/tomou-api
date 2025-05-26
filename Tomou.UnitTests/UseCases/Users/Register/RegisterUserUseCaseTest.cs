@@ -80,4 +80,82 @@ public class RegisterUserUseCaseTest
         unitOfWorkMock.Verify(u => u.Commit(), Times.Once);
         encrypterMock.Verify(e => e.Encrypt(It.IsAny<string>()), Times.Once);
     }
+
+    [Fact]
+    public async Task ShouldNotCallCommit_WhenEmailAlreadyExists()
+    {
+        var readRepoMock = new Mock<IUserReadOnlyRepository>();
+        var writeRepoMock = new Mock<IUserWriteOnlyRepository>();
+        var unitOfWorkMock = new Mock<IUnitOfWork>();
+        var encrypterMock = new Mock<IEncrypter>();
+        var mapperMock = new Mock<IMapper>();
+
+        readRepoMock.Setup(r => r.ExistsByEmailAsync(It.IsAny<string>()))
+            .ReturnsAsync(true);
+
+        var request = RequestRegisterUserJsonBuilder.Build();
+
+        var useCase = new RegisterUserUseCase(
+           readRepoMock.Object,
+           writeRepoMock.Object,
+           unitOfWorkMock.Object,
+           mapperMock.Object,
+           encrypterMock.Object
+        );
+
+        await Assert.ThrowsAsync<EmailAlreadyExistsException>(() => useCase.Execute(request));
+
+        writeRepoMock.Verify(w => w.Add(It.IsAny<User>()), Times.Never);
+        unitOfWorkMock.Verify(u => u.Commit(), Times.Never);
+        encrypterMock.Verify(e => e.Encrypt(It.IsAny<string>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task ShouldCallEncryptPassword_BeforeSavingUser()
+    {
+        var readRepoMock = new Mock<IUserReadOnlyRepository>();
+        var writeRepoMock = new Mock<IUserWriteOnlyRepository>();
+        var unitOfWorkMock = new Mock<IUnitOfWork>();
+        var encrypterMock = new Mock<IEncrypter>();
+        var mapperMock = new Mock<IMapper>();
+        User? savedUser = null;
+
+        readRepoMock.Setup(r => r.ExistsByEmailAsync(It.IsAny<string>()))
+            .ReturnsAsync(false);
+
+        writeRepoMock.Setup(w => w.Add(It.IsAny<User>()))
+            .Callback<User>(u => savedUser = u);
+
+        var request = RequestRegisterUserJsonBuilder.Build();
+        var userEntity = new User
+        {
+            Name = request.Name,
+            Email = request.Email,
+            Password = "placeholder"
+        };
+
+        mapperMock.Setup(m => m.Map<User>(request)).Returns(userEntity);
+        mapperMock.Setup(m => m.Map<ResponseRegisteredUserJson>(userEntity))
+       .Returns(new ResponseRegisteredUserJson
+       {
+           Name = request.Name,
+           Email = request.Email,
+
+       });
+
+        var useCase = new RegisterUserUseCase(
+             readRepoMock.Object,
+             writeRepoMock.Object,
+             unitOfWorkMock.Object,
+             mapperMock.Object,
+             encrypterMock.Object
+          );
+
+
+        encrypterMock.Setup(e => e.Encrypt(request.Password)).Returns("hashed123");
+        await useCase.Execute(request);
+
+
+        savedUser!.Password.ShouldBe("hashed123");
+    }
 }
