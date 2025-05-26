@@ -41,7 +41,7 @@ public class ForgotPasswordUseCaseTests
         await useCase.Execute(request);
 
         tokenRepoMock.Verify(repo => repo.Save(It.IsAny<PasswordResetToken>()), Times.Once);
-        unitOfWorkMock.Verify(uow => uow.Commit(), Times.Once);
+        unitOfWorkMock.Verify(uow => uow.Commit(), Times.Exactly(2));
         emailServiceMock.Verify(email => email.Send(
             user.Email,
             It.Is<string>(s => s.Contains("Recuperação")),
