@@ -33,7 +33,7 @@ public class UserControllerTests : IClassFixture<WebApplicationFactory<Program>>
         );
 
 
-        var response = await _httpClient.PostAsync("/api/user", content);
+        var response = await _httpClient.PostAsync("/api/user/register", content);
         var json = await response.Content.ReadAsStringAsync();
         json.ShouldContain(name);
         response.StatusCode.ShouldBe(HttpStatusCode.Created);
@@ -60,7 +60,7 @@ public class UserControllerTests : IClassFixture<WebApplicationFactory<Program>>
             "application/json"
         );
 
-        var firstResponse = await _httpClient.PostAsync("/api/user", content);
+        var firstResponse = await _httpClient.PostAsync("/api/user/register", content);
         firstResponse.StatusCode.ShouldBe(HttpStatusCode.Created);
 
         var duplicatedContent = new StringContent
@@ -70,7 +70,7 @@ public class UserControllerTests : IClassFixture<WebApplicationFactory<Program>>
             "application/json"
         );
 
-        var secondResponse = await _httpClient.PostAsync("/api/user", duplicatedContent);
+        var secondResponse = await _httpClient.PostAsync("/api/user/register", duplicatedContent);
         secondResponse.StatusCode.ShouldBe(HttpStatusCode.Conflict);
 
 

@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Shouldly;
 using System.Text.Json;
@@ -10,7 +11,11 @@ public class AuthControllerTests : IClassFixture<WebApplicationFactory<Program>>
     private readonly HttpClient _httpClient;
     public AuthControllerTests(WebApplicationFactory<Program> factory)
     {
-        _httpClient = factory.CreateClient();
+        _httpClient = factory.WithWebHostBuilder(builder =>
+        {
+            builder.UseEnvironment("Testing");
+        })
+     .CreateClient();
     }
 
     [Fact]
@@ -33,7 +38,7 @@ public class AuthControllerTests : IClassFixture<WebApplicationFactory<Program>>
             "application/json"
         );
 
-        await _httpClient.PostAsync("/api/user/", registerContent);
+        await _httpClient.PostAsync("/api/user/register", registerContent);
 
         var loginRequest = new
         {
@@ -108,7 +113,7 @@ public class AuthControllerTests : IClassFixture<WebApplicationFactory<Program>>
             "application/json"
         );
 
-        await _httpClient.PostAsync("/api/user/", registerContent);
+        await _httpClient.PostAsync("/api/user/register", registerContent);
 
         var loginRequest = new
         {
@@ -128,8 +133,31 @@ public class AuthControllerTests : IClassFixture<WebApplicationFactory<Program>>
         var json = await response.Content.ReadAsStringAsync();
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
 
-
     }
+
+    [Fact]
+    public async Task ShouldReturnBadRequest_WhenLoginPayloadIsInvalid()
+    {
+        var faker = new Faker("pt_BR");
+        var email = faker.Internet.Email();
+
+        var invalidLoginRequest = new
+        {
+            email
+        };
+
+        var content = new StringContent(
+            JsonSerializer.Serialize(invalidLoginRequest),
+            System.Text.Encoding.UTF8,
+            "application/json"
+        );
+
+        var response = await _httpClient.PostAsync("/api/Auth", content);
+
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+    }
+
+
 }
 
 
