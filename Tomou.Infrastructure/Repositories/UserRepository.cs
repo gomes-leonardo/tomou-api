@@ -25,4 +25,10 @@ internal class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepositor
     {
         return await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
     }
+
+    public async Task<User?> GetUserById(long id)
+    {
+        return await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+    }
 }

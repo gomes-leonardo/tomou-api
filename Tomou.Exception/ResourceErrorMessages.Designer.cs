@@ -97,6 +97,15 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Token expirado..
+        /// </summary>
+        public static string EXPIRED_TOKEN {
+            get {
+                return ResourceManager.GetString("EXPIRED_TOKEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a E-mail ou senha inválidos..
         /// </summary>
         public static string INVALID_CREDENTIALS {
@@ -124,6 +133,15 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Token inválido.
+        /// </summary>
+        public static string INVALID_TOKEN {
+            get {
+                return ResourceManager.GetString("INVALID_TOKEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O campo &quot;cuidador&quot; deve ser preenchido..
         /// </summary>
         public static string ISCAREGIVER_REQUIRED {
@@ -138,6 +156,15 @@ namespace Tomou.Exception {
         public static string UNKNOWN_ERROR {
             get {
                 return ResourceManager.GetString("UNKNOWN_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Usuário não encontrado..
+        /// </summary>
+        public static string USER_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("USER_NOT_FOUND", resourceCulture);
             }
         }
     }

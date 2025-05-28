@@ -129,6 +129,9 @@
   <data name="EMPTY_PASSWORD" xml:space="preserve">
     <value>Senha não pode ser vazia.</value>
   </data>
+  <data name="EXPIRED_TOKEN" xml:space="preserve">
+    <value>Token expirado.</value>
+  </data>
   <data name="INVALID_CREDENTIALS" xml:space="preserve">
     <value>E-mail ou senha inválidos.</value>
   </data>
@@ -138,10 +141,16 @@
   <data name="INVALID_PASSWORD" xml:space="preserve">
     <value>A senha deve conter no mínimo 8 caracteres, incluindo ao menos 1 letra maiúscula e 1 caractere especial (ex: ! @ # $ %).</value>
   </data>
+  <data name="INVALID_TOKEN" xml:space="preserve">
+    <value>Token inválido</value>
+  </data>
   <data name="ISCAREGIVER_REQUIRED" xml:space="preserve">
     <value>O campo "cuidador" deve ser preenchido.</value>
   </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erro desconhecido.</value>
+  </data>
+  <data name="USER_NOT_FOUND" xml:space="preserve">
+    <value>Usuário não encontrado.</value>
   </data>
 </root>

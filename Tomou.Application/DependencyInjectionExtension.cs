@@ -3,6 +3,7 @@ using Tomou.Application.AutoMapper;
 using Tomou.Application.UseCases.User.ForgotPassword;
 using Tomou.Application.UseCases.User.Login;
 using Tomou.Application.UseCases.User.Register;
+using Tomou.Application.UseCases.User.ResetPassword;
 
 namespace Tomou.Application;
 public static class DependencyInjectionExtension
@@ -18,6 +19,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
         services.AddScoped<IForgotPasswordUseCase, ForgotPasswordUseCase>();
+        services.AddScoped<IResetPasswordUseCase, ResetPasswordUseCase>();
     }
 
     private static void AddAutoMapper(IServiceCollection services)
