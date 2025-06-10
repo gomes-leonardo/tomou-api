@@ -7,6 +7,7 @@ namespace Tomou.Api.Controllers;
 [ApiController]
 public class ForgotPasswordController : ControllerBase
 {
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpPost("forgot-password")]
 
     public async Task<IActionResult> ForgotPassword(

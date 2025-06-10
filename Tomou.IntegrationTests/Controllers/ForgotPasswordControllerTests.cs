@@ -59,7 +59,7 @@ public class ForgotPasswordControllerTests : IClassFixture<WebApplicationFactory
           "application/json"
        );
 
-        var forgotPasswordResponse = await _httpClient.PostAsync("api/ForgotPassword", forgotPasswordContent);
+        var forgotPasswordResponse = await _httpClient.PostAsync("forgot-password", forgotPasswordContent);
         forgotPasswordResponse.StatusCode.ShouldBe(HttpStatusCode.NoContent);
     }
 
@@ -81,7 +81,7 @@ public class ForgotPasswordControllerTests : IClassFixture<WebApplicationFactory
          "application/json"
       );
 
-        var forgotPasswordResponse = await _httpClient.PostAsync("api/ForgotPassword", forgotPasswordContent);
+        var forgotPasswordResponse = await _httpClient.PostAsync("/forgot-password", forgotPasswordContent);
         forgotPasswordResponse.StatusCode.ShouldBe(HttpStatusCode.NoContent);
     }
 
