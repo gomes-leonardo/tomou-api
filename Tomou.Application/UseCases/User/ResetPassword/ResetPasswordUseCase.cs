@@ -14,6 +14,7 @@ public class ResetPasswordUseCase : IResetPasswordUseCase
     private readonly IUserReadOnlyRepository _userRepository;
     private readonly IEncrypter _encrypter;
 
+    
     public ResetPasswordUseCase(
         IUnitOfWork unitOfWork,
         IPasswordResetTokenRepository passwordResetTokenRepository,
