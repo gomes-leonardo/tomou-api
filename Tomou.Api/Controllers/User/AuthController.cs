@@ -4,7 +4,7 @@ using Tomou.Communication.Requests.User.Login;
 using Tomou.Communication.Responses;
 using Tomou.Communication.Responses.User.Login;
 
-namespace Tomou.Api.Controllers;
+namespace Tomou.Api.Controllers.User;
 [Route("api/[controller]")]
 [ApiController]
 public class AuthController : ControllerBase

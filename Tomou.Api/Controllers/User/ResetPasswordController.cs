@@ -2,7 +2,7 @@
 using Tomou.Application.UseCases.User.ResetPassword;
 using Tomou.Communication.Requests.User.ForgotPassword;
 
-namespace Tomou.Api.Controllers;
+namespace Tomou.Api.Controllers.User;
 [ApiController]
 public class ResetPasswordController : ControllerBase
 {

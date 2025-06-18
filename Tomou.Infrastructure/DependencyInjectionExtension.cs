@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tomou.Application.Services.Email;
+using Tomou.Domain.Repositories.Dependent;
 using Tomou.Domain.Repositories.PasswordToken;
 using Tomou.Domain.Repositories.UnitOfWork;
 using Tomou.Domain.Repositories.User;
@@ -9,7 +10,8 @@ using Tomou.Domain.Security.Crypthography;
 using Tomou.Domain.Security.Tokens;
 using Tomou.Infrastructure.DataAccess;
 using Tomou.Infrastructure.DataAccess.UnitOfWork;
-using Tomou.Infrastructure.Repositories;
+using Tomou.Infrastructure.Repositories.Dependent;
+using Tomou.Infrastructure.Repositories.User;
 using Tomou.Infrastructure.Security.Cryptography;
 using Tomou.Infrastructure.Security.Tokens;
 
@@ -31,6 +33,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();
         services.AddScoped<IEmailService, FakeEmailService>();
+        services.AddScoped<IDependentWriteOnlyRepository, DependentRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)

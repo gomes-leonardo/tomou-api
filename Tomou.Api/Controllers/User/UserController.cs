@@ -4,7 +4,7 @@ using Tomou.Communication.Requests.User.Register;
 using Tomou.Communication.Responses;
 using Tomou.Communication.Responses.User.Register;
 
-namespace Tomou.Api.Controllers;
+namespace Tomou.Api.Controllers.User;
 [Route("api/[controller]")]
 [ApiController]
 public class UserController : ControllerBase
@@ -17,9 +17,9 @@ public class UserController : ControllerBase
         var result = await useCase.Execute(request);
         return Created(string.Empty, result);
     }
-    
 
-    
+
+
 }
 
 

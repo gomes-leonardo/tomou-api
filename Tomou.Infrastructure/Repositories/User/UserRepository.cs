@@ -3,7 +3,7 @@ using Tomou.Domain.Entities;
 using Tomou.Domain.Repositories.User;
 using Tomou.Infrastructure.DataAccess;
 
-namespace Tomou.Infrastructure.Repositories;
+namespace Tomou.Infrastructure.Repositories.User;
 internal class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepository
 {
     private readonly TomouDbContext _dbContext;
@@ -11,7 +11,7 @@ internal class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepositor
     {
         _dbContext = dbContext;
     }
-    public async Task Add(User user)
+    public async Task Add(Domain.Entities.User user)
     {
         await _dbContext.AddAsync(user);
     }
@@ -21,12 +21,12 @@ internal class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepositor
         return await _dbContext.Users.AnyAsync(u => u.Email == email);
     }
 
-    public async Task<User?> GetUserByEmail(string email)
+    public async Task<Domain.Entities.User?> GetUserByEmail(string email)
     {
         return await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
     }
 
-    public async Task<User?> GetUserById(long id)
+    public async Task<Domain.Entities.User?> GetUserById(long id)
     {
         return await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
 

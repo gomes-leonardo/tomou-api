@@ -3,7 +3,7 @@ using Tomou.Domain.Entities;
 using Tomou.Domain.Repositories.PasswordToken;
 using Tomou.Infrastructure.DataAccess;
 
-namespace Tomou.Infrastructure.Repositories;
+namespace Tomou.Infrastructure.Repositories.User;
 internal class PasswordResetTokenRepository : IPasswordResetTokenRepository
 {
     private readonly TomouDbContext _dbContext;

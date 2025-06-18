@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Tomou.Application.UseCases.User.ForgotPassword;
 using Tomou.Communication.Requests.User.ForgotPassword;
 
-namespace Tomou.Api.Controllers;
+namespace Tomou.Api.Controllers.User;
 [ApiController]
 public class ForgotPasswordController : ControllerBase
 {
