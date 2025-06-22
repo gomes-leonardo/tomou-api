@@ -57,13 +57,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// DI
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
-// Dev tools
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -72,13 +71,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Ativando autenticação e autorização
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
-// Executar migrations
 await MigrateDatabase();
 
 app.Run();

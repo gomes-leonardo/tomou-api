@@ -151,6 +151,15 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Usuário não tem permissão para essa ação..
+        /// </summary>
+        public static string UNAUTHORIZED {
+            get {
+                return ResourceManager.GetString("UNAUTHORIZED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Erro desconhecido..
         /// </summary>
         public static string UNKNOWN_ERROR {

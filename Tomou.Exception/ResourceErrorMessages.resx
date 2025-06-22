@@ -147,6 +147,9 @@
   <data name="ISCAREGIVER_REQUIRED" xml:space="preserve">
     <value>O campo "cuidador" deve ser preenchido.</value>
   </data>
+  <data name="UNAUTHORIZED" xml:space="preserve">
+    <value>Usuário não tem permissão para essa ação.</value>
+  </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erro desconhecido.</value>
   </data>
