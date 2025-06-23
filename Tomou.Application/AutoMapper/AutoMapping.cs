@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Tomou.Communication.Requests.Dependent.Register;
 using Tomou.Communication.Requests.User.Register;
+using Tomou.Communication.Responses.Dependent.Get;
 using Tomou.Communication.Responses.Dependent.Register;
 using Tomou.Communication.Responses.User.Register;
 using Tomou.Domain.Entities;
@@ -16,12 +17,14 @@ public class AutoMapping : Profile
     private void RequestToEntity()
     {
         CreateMap<RequestRegisterUserJson, User>();
-        CreateMap<RequestRegisterDependentJson, Tomou.Domain.Entities.Dependent>();
+        CreateMap<RequestRegisterDependentJson, Domain.Entities.Dependent>();
     }
     private void EntityToResponse()
     {
         CreateMap<User, ResponseRegisteredUserJson>();
-        CreateMap<Tomou.Domain.Entities.Dependent, ResponseCreateDependentJson >();
+        CreateMap<Domain.Entities.Dependent, ResponseCreateDependentJson >();
+        CreateMap<Domain.Entities.Dependent, ResponseDependentShortJson >();
+        CreateMap<Domain.Entities.Dependent, ResponseDependentShortJson >();
 
     }
 }

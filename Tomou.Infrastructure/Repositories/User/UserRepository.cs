@@ -28,7 +28,9 @@ internal class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepositor
 
     public async Task<Domain.Entities.User?> GetUserById(long id)
     {
-        return await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+        return await _dbContext.Users
+       .Include(u => u.Dependents)
+       .FirstOrDefaultAsync(u => u.Id == id);
 
     }
 }
