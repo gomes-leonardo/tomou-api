@@ -132,6 +132,9 @@
   <data name="EXPIRED_TOKEN" xml:space="preserve">
     <value>Token expirado.</value>
   </data>
+  <data name="FORBIDDEN_ACCESS" xml:space="preserve">
+    <value>Somente cuidadores podem criar dependentes.</value>
+  </data>
   <data name="INVALID_CREDENTIALS" xml:space="preserve">
     <value>E-mail ou senha inválidos.</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="ISCAREGIVER_REQUIRED" xml:space="preserve">
     <value>O campo "cuidador" deve ser preenchido.</value>
+  </data>
+  <data name="LIMIT_EXCEED" xml:space="preserve">
+    <value>Cada cuidador pode registrar no máximo 5 dependentes</value>
   </data>
   <data name="UNAUTHORIZED" xml:space="preserve">
     <value>Usuário não tem permissão para essa ação.</value>

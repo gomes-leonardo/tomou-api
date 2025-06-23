@@ -5,6 +5,7 @@ using Tomou.Communication.Responses.Dependent.Register;
 using Tomou.Domain.Repositories.Dependent;
 using Tomou.Domain.Repositories.UnitOfWork;
 using Tomou.Domain.Repositories.User;
+using Tomou.Exception;
 using Tomou.Exception.ExceptionsBase;
 
 namespace Tomou.Application.UseCases.Dependent.Register;
@@ -37,10 +38,10 @@ public class RegisterDependentUseCase : IRegisterDependentUseCase
 
         var user = await _userReadOnlyRepository.GetUserById(caregiverId);
         if (user is null || user.IsCaregiver is false)
-            throw new ForbiddenAccessException("Somente cuidadores podem criar dependentes.");
+            throw new ForbiddenAccessException(ResourceErrorMessages.FORBIDDEN_ACCESS);
 
         if (user.Dependents.Count >= 5)
-            throw new LimitExceededException("Cada cuidador pode registrar no máximo 5 dependentes.");
+            throw new LimitExceededException(ResourceErrorMessages.LIMIT_EXCEED);
 
         var entity = _mapper.Map<Domain.Entities.Dependent>(request);
         entity.CaregiverId = caregiverId;

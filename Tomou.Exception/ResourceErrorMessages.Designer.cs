@@ -106,6 +106,15 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Somente cuidadores podem criar dependentes..
+        /// </summary>
+        public static string FORBIDDEN_ACCESS {
+            get {
+                return ResourceManager.GetString("FORBIDDEN_ACCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a E-mail ou senha inválidos..
         /// </summary>
         public static string INVALID_CREDENTIALS {
@@ -147,6 +156,15 @@ namespace Tomou.Exception {
         public static string ISCAREGIVER_REQUIRED {
             get {
                 return ResourceManager.GetString("ISCAREGIVER_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cada cuidador pode registrar no máximo 5 dependentes.
+        /// </summary>
+        public static string LIMIT_EXCEED {
+            get {
+                return ResourceManager.GetString("LIMIT_EXCEED", resourceCulture);
             }
         }
         
