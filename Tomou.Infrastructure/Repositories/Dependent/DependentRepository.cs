@@ -16,11 +16,29 @@ internal class DependentRepository : IDependentWriteOnlyRepository, IDependentRe
         await _dbContext.Dependents.AddAsync(dependent);
     }
 
-    public async Task<List<Domain.Entities.Dependent>> GetByCaregiverId(long caregiverId)
+    public async Task<List<Domain.Entities.Dependent>> GetByCaregiverId(
+        long caregiverId,
+        string? nameFilter = null,
+        bool ascending = true)
     {
-        return await _dbContext.Dependents
-         .AsNoTracking()
-         .Where(d => d.CaregiverId == caregiverId)
-         .ToListAsync();
+        var query = _dbContext.Dependents
+        .AsNoTracking()
+        .Where(d => d.CaregiverId == caregiverId);
+
+        if (!string.IsNullOrEmpty(nameFilter))
+        {
+             query = query.Where(d =>
+             EF.Functions.Like(d.Name, $"%{nameFilter}%"));
+        }
+
+        query = ascending
+            ? query.OrderBy(d => d.Name)
+            : query.OrderByDescending(d => d.Name);
+
+        return await query.ToListAsync();
     }
+
+   
+
+    
 }

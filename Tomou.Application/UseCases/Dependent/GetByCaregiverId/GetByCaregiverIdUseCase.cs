@@ -25,7 +25,7 @@ public class GetByCaregiverIdUseCase : IGetByCaregiverIdUseCase
         _userRepository = userRepository;
 
     }
-    public async Task<ResponseDependentsJson> Execute()
+    public async Task<ResponseDependentsJson> Execute(string? nameFilter = null, bool ascending = true)
     {
         var caregiverId = _userContext.GetUserId();
         var user = await _userRepository.GetUserById(caregiverId);
@@ -34,7 +34,11 @@ public class GetByCaregiverIdUseCase : IGetByCaregiverIdUseCase
             throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
 
 
-        var result = await _repository.GetByCaregiverId(caregiverId);
+        var result = await _repository.GetByCaregiverId(
+            caregiverId,
+            nameFilter,
+            ascending
+        );
 
         return new ResponseDependentsJson
         {

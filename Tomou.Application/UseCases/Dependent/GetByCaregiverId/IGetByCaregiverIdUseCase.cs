@@ -3,5 +3,5 @@
 namespace Tomou.Application.UseCases.Dependent.GetAll;
 public interface IGetByCaregiverIdUseCase
 {
-    Task<ResponseDependentsJson> Execute();
+    Task<ResponseDependentsJson> Execute(string? nameFilter = null, bool ascending = true);
 }

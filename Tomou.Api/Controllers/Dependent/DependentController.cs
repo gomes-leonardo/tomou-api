@@ -33,12 +33,15 @@ public class DependentController : ControllerBase
     [ProducesResponseType(typeof(ResponseDependentsJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByCaregiverId(
-       [FromServices] IGetByCaregiverIdUseCase useCase
+       [FromServices] IGetByCaregiverIdUseCase useCase,
+       [FromQuery] string? name = null,
+       [FromQuery] string order = "asc"
       )
     {
-        var response = await useCase.Execute();
-        
-        if(response.Dependents.Count != 0)
+        var response = await useCase.Execute(nameFilter: name, ascending: order.Equals("asc", StringComparison.OrdinalIgnoreCase));
+
+
+        if (response.Dependents.Count != 0)
         {
             return Ok(response);
         }

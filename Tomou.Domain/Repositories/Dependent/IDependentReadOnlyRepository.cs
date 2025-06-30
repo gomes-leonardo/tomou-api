@@ -1,5 +1,5 @@
 ﻿namespace Tomou.Domain.Repositories.Dependent;
 public interface IDependentReadOnlyRepository
 {
-    Task<List<Entities.Dependent>> GetByCaregiverId(long caregiverId);
+    Task<List<Entities.Dependent>> GetByCaregiverId(long caregiverId, string? nameFilter = null, bool ascending = true);
 }
