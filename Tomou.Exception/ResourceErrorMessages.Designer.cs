@@ -61,6 +61,15 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dependente não encontrado..
+        /// </summary>
+        public static string DEPENDENT_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("DEPENDENT_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a E-mail já está em uso..
         /// </summary>
         public static string EMAIL_ALREADY_EXISTS {

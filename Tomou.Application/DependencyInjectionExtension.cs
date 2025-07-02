@@ -3,6 +3,7 @@ using Tomou.Application.AutoMapper;
 using Tomou.Application.Services.Auth;
 using Tomou.Application.UseCases.Dependent.GetAll;
 using Tomou.Application.UseCases.Dependent.Register;
+using Tomou.Application.UseCases.Dependent.Update;
 using Tomou.Application.UseCases.User.ForgotPassword;
 using Tomou.Application.UseCases.User.Login;
 using Tomou.Application.UseCases.User.Register;
@@ -26,6 +27,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterDependentUseCase, RegisterDependentUseCase>();
         services.AddScoped<IGetByCaregiverIdUseCase, GetByCaregiverIdUseCase>();
         services.AddScoped<IUserContext, UserContext>();
+        services.AddScoped<IUpdateDependentUseCase, UpdateDependentUseCase>();
     }
 
     private static void AddAutoMapper(IServiceCollection services)

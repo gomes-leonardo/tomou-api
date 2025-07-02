@@ -35,6 +35,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IEmailService, FakeEmailService>();
         services.AddScoped<IDependentWriteOnlyRepository, DependentRepository>();
         services.AddScoped<IDependentReadOnlyRepository, DependentRepository>();
+        services.AddScoped<IDependentUpdateOnlyRepository, DependentRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)

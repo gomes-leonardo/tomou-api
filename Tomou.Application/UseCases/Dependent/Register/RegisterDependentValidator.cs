@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Tomou.Application.UseCases.Dependent.Validators.Common;
 using Tomou.Communication.Requests.Dependent.Register;
 using Tomou.Exception;
 
@@ -7,6 +8,6 @@ public class RegisterDependentValidator : AbstractValidator<RequestRegisterDepen
 {
     public RegisterDependentValidator()
     {
-        RuleFor(u => u.Name).NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_NAME);
+        Include(new NameValidator<RequestRegisterDependentJson>(x => x.Name));
     }
 }

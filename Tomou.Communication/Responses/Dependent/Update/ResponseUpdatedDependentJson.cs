@@ -1,5 +1,5 @@
-﻿namespace Tomou.Communication.Responses.Dependent.Register;
-public class ResponseCreateDependentJson
+﻿namespace Tomou.Communication.Responses.Dependent.Update;
+public class ResponseUpdatedDependentJson
 {
     public long Id { get; set; }
     public string Name { get; set; } = string.Empty;

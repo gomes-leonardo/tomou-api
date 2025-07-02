@@ -10,6 +10,8 @@ using Tomou.Application.Services.Auth;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Tomou.Application.UseCases.Dependent.GetAll;
 using Tomou.Communication.Responses.Dependent.Get;
+using Tomou.Communication.Responses.Dependent.Update;
+using Tomou.Application.UseCases.Dependent.Update;
 
 namespace Tomou.Api.Controllers.Dependent;
 [Route("api/[controller]")]
@@ -39,13 +41,25 @@ public class DependentController : ControllerBase
       )
     {
         var response = await useCase.Execute(nameFilter: name, ascending: order.Equals("asc", StringComparison.OrdinalIgnoreCase));
-
-
         if (response.Dependents.Count != 0)
         {
             return Ok(response);
         }
-
         return NoContent();
+    }
+
+    [HttpPut]
+    [Route("{id}")]
+    [ProducesResponseType(typeof(ResponseUpdatedDependentJson), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    
+    public async Task<IActionResult> Update(
+        [FromBody] RequestUpdateDependentJson request,
+        [FromServices] IUpdateDependentUseCase useCase,
+        [FromRoute] long id)
+    {
+       var result = await useCase.Execute(request, id);
+
+        return Ok(result);
     }
 }

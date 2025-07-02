@@ -3,7 +3,7 @@ using Tomou.Domain.Repositories.Dependent;
 using Tomou.Infrastructure.DataAccess;
 
 namespace Tomou.Infrastructure.Repositories.Dependent;
-internal class DependentRepository : IDependentWriteOnlyRepository, IDependentReadOnlyRepository
+internal class DependentRepository : IDependentWriteOnlyRepository, IDependentReadOnlyRepository, IDependentUpdateOnlyRepository
 {
     private readonly TomouDbContext _dbContext;
 
@@ -38,7 +38,14 @@ internal class DependentRepository : IDependentWriteOnlyRepository, IDependentRe
         return await query.ToListAsync();
     }
 
-   
+    async Task<Domain.Entities.Dependent?> IDependentUpdateOnlyRepository.GetById(long id)
+    {
+        return await _dbContext.Dependents.FirstOrDefaultAsync(dependent => dependent.Id.Equals(id));
+    }
 
-    
+    public void Update(Domain.Entities.Dependent dependent)
+    {
+        _dbContext.Dependents.Update(dependent);
+    }
+
 }

@@ -50,7 +50,10 @@ public class RegisterDependentUseCase : IRegisterDependentUseCase
         await _depentWriteOnlyRepository.Add(entity);
         await _unitOfWork.Commit();
 
-       return _mapper.Map<ResponseCreateDependentJson>(entity);
+       var response = _mapper.Map<ResponseCreateDependentJson>(entity);
+       response.Message = $"Dependente {entity.Name} cadastrado(a) com sucesso";
+
+       return response;
 
     }
 
