@@ -12,6 +12,7 @@ using Tomou.Application.UseCases.Dependent.GetAll;
 using Tomou.Communication.Responses.Dependent.Get;
 using Tomou.Communication.Responses.Dependent.Update;
 using Tomou.Application.UseCases.Dependent.Update;
+using Tomou.Application.UseCases.Dependent.Delete;
 
 namespace Tomou.Api.Controllers.Dependent;
 [Route("api/[controller]")]
@@ -62,4 +63,18 @@ public class DependentController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpDelete]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+
+    public async Task<IActionResult> Delete(
+        [FromServices] IDeleteDependentUseCase useCase,
+        [FromRoute] long id)
+    {
+        await useCase.Execute(id);
+        return NoContent();
+    }
+
 }

@@ -38,7 +38,7 @@ public class UpdateDependentUseCase : IUpdateDependentUseCase
         var user = await _userReadOnlyRepository.GetUserById(caregiverId);
 
         if(user is null || user.IsCaregiver is false)
-            throw new ForbiddenAccessException(ResourceErrorMessages.FORBIDDEN_ACCESS);
+            throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
 
         var dependent = await _repository.GetById(id) ?? throw new NotFoundException(ResourceErrorMessages.DEPENDENT_NOT_FOUND);
 

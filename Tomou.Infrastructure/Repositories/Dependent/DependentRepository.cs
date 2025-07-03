@@ -48,4 +48,16 @@ internal class DependentRepository : IDependentWriteOnlyRepository, IDependentRe
         _dbContext.Dependents.Update(dependent);
     }
 
+    public async Task<bool> Delete(long id)
+    {
+        var result = await _dbContext.Dependents.FirstOrDefaultAsync(dependent => dependent.Id.Equals(id));
+
+        if (result == null)
+        {
+            return false;
+        }
+
+        _dbContext.Dependents.Remove(result);
+        return true;
+    }
 }

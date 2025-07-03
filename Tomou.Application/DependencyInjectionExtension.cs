@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Tomou.Application.AutoMapper;
 using Tomou.Application.Services.Auth;
+using Tomou.Application.UseCases.Dependent.Delete;
 using Tomou.Application.UseCases.Dependent.GetAll;
 using Tomou.Application.UseCases.Dependent.Register;
 using Tomou.Application.UseCases.Dependent.Update;
@@ -28,6 +29,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetByCaregiverIdUseCase, GetByCaregiverIdUseCase>();
         services.AddScoped<IUserContext, UserContext>();
         services.AddScoped<IUpdateDependentUseCase, UpdateDependentUseCase>();
+        services.AddScoped<IDeleteDependentUseCase, DeleteDependentUseCase>();
     }
 
     private static void AddAutoMapper(IServiceCollection services)
