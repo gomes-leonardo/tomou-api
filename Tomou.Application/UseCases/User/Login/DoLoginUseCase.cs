@@ -34,7 +34,8 @@ public class DoLoginUseCase : IDoLoginUseCase
         return new ResponseLoggedUserJson
         {
             Name = user.Name,
-            Token = token
+            Token = token,
+            IsCaregiver = user.IsCaregiver
         };
 
     }

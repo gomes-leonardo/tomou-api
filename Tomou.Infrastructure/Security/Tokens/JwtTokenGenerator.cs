@@ -23,7 +23,7 @@ internal class JwtTokenGenerator : IAccessTokenGenerator
             new(ClaimTypes.NameIdentifier, userId.ToString()),
             new(ClaimTypes.Name, name),
             new(ClaimTypes.Email, email),
-            new("isCaregiver", isCaregiver.ToString())
+            new("isCaregiver", isCaregiver.ToString()),
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secret));
