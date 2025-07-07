@@ -8,7 +8,7 @@ using Tomou.Domain.Repositories.UnitOfWork;
 using Tomou.Domain.Repositories.User;
 using Tomou.Domain.Security.Crypthography;
 using Tomou.Exception.ExceptionsBase;
-using Tomou.TestUtils.Users.Register.Requests;
+using Tomou.TestUtils.User.Register.Requests;
 
 namespace Tomou.UnitTests.UseCases.Users.Register;
 public class RegisterUserUseCaseTest

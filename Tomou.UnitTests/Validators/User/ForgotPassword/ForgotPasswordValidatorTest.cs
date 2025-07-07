@@ -3,10 +3,10 @@ using Shouldly;
 using Tomou.Application.UseCases.User.Register;
 using Tomou.Application.Validators.User;
 using Tomou.Exception;
-using Tomou.TestUtils.Users.Login.Requests;
-using Tomou.TestUtils.Users.Register.Requests;
+using Tomou.TestUtils.User.Login.Requests;
+using Tomou.TestUtils.User.Register.Requests;
 
-namespace Tomou.UnitTests.Validators.Users.ForgotPassword;
+namespace Tomou.UnitTests.Validators.User.ForgotPassword;
 public class ForgotPasswordValidatorTest
 {
 

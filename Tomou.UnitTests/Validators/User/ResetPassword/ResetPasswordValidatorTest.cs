@@ -1,10 +1,10 @@
 ﻿using Shouldly;
 using Tomou.Application.UseCases.User.Login;
 using Tomou.Application.UseCases.User.ResetPassword;
-using Tomou.TestUtils.Users.Login.Requests;
-using Tomou.TestUtils.Users.ResetPassword.Requests;
+using Tomou.TestUtils.User.Login.Requests;
+using Tomou.TestUtils.User.ResetPassword.Requests;
 
-namespace Tomou.UnitTests.Validators.Users.ResetPassword;
+namespace Tomou.UnitTests.Validators.User.ResetPassword;
 public class ResetPasswordValidatorTest
 {
     [Fact]

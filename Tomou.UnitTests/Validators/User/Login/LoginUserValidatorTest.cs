@@ -3,10 +3,10 @@ using Tomou.Application.UseCases.User.Login;
 using Tomou.Application.UseCases.User.Register;
 using Tomou.Communication.Requests.User.Login;
 using Tomou.Exception;
-using Tomou.TestUtils.Users.Login.Requests;
-using Tomou.TestUtils.Users.Register.Requests;
+using Tomou.TestUtils.User.Login.Requests;
+using Tomou.TestUtils.User.Register.Requests;
 
-namespace Tomou.UnitTests.Validators.Users.Login;
+namespace Tomou.UnitTests.Validators.User.Login;
 public class LoginUserValidatorTest
 {
     [Fact]

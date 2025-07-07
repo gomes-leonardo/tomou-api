@@ -1,7 +1,7 @@
 ﻿using Tomou.Communication.Requests.User.ForgotPassword;
 using Bogus;
 
-namespace Tomou.TestUtils.Users.ResetPassword.Requests;
+namespace Tomou.TestUtils.User.ResetPassword.Requests;
 public static class RequestResetPasswordJsonBuilder
 {
    public static RequestResetPasswordJson Build()

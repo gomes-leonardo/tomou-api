@@ -1,9 +1,9 @@
 ﻿using Shouldly;
 using Tomou.Application.UseCases.User.Register;
 using Tomou.Exception;
-using Tomou.TestUtils.Users.Register.Requests;
+using Tomou.TestUtils.User.Register.Requests;
 
-namespace Tomou.UnitTests.Validators.Users.Register;
+namespace Tomou.UnitTests.Validators.User.Register;
 public class RegisterUserValidatorTest
 {
     [Fact]

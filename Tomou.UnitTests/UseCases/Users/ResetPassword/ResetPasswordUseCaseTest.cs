@@ -7,7 +7,7 @@ using Tomou.Domain.Repositories.UnitOfWork;
 using Tomou.Domain.Repositories.User;
 using Tomou.Domain.Security.Crypthography;
 using Tomou.Exception.ExceptionsBase;
-using Tomou.TestUtils.Users.ResetPassword.Requests;
+using Tomou.TestUtils.User.ResetPassword.Requests;
 
 namespace Tomou.UnitTests.UseCases.Users.ResetPassword;
 public class ResetPasswordUseCaseTest

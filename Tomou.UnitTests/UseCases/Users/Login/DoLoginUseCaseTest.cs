@@ -6,7 +6,7 @@ using Tomou.Domain.Repositories.User;
 using Tomou.Domain.Security.Crypthography;
 using Tomou.Domain.Security.Tokens;
 using Tomou.Exception.ExceptionsBase;
-using Tomou.TestUtils.Users.Login.Requests;
+using Tomou.TestUtils.User.Login.Requests;
 
 namespace Tomou.UnitTests.UseCases.Users.Login;
 public class DoLoginUseCaseTest
