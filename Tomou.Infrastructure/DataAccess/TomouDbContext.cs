@@ -37,10 +37,22 @@ public class TomouDbContext : DbContext
         modelBuilder.Entity<Medication>(entity =>
         {
             entity.HasKey(m => m.Id);
+
+            entity.HasOne(m => m.Dependent)
+                  .WithMany(d => d.Medications)
+                  .HasForeignKey(m => m.DependentId)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(m => m.User)
+                  .WithMany(u => u.Medications)
+                  .HasForeignKey(m => m.UserId)
+                  .OnDelete(DeleteBehavior.Restrict);
+
             entity.HasMany(m => m.Logs)
-                    .WithOne(l => l.Medication)
-                    .HasForeignKey(l => l.MedicationId);
+                  .WithOne(l => l.Medication)
+                  .HasForeignKey(l => l.MedicationId);
         });
+
 
         modelBuilder.Entity<MedicationLog>(entity =>
         {

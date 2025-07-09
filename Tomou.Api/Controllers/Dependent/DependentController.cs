@@ -1,18 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Tomou.Application.UseCases.Dependent.Register;
-using Tomou.Communication.Requests.Dependent.Register;
-using Tomou.Communication.Responses.User.Register;
-using Tomou.Communication.Responses;
-using Tomou.Communication.Responses.Dependent.Register;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using Tomou.Application.Services.Auth;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Tomou.Application.UseCases.Dependent.GetAll;
-using Tomou.Communication.Responses.Dependent.Get;
-using Tomou.Communication.Responses.Dependent.Update;
-using Tomou.Application.UseCases.Dependent.Update;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tomou.Application.UseCases.Dependent.Delete;
+using Tomou.Application.UseCases.Dependent.GetAll;
+using Tomou.Application.UseCases.Dependent.Register;
+using Tomou.Application.UseCases.Dependent.Update;
+using Tomou.Communication.Requests.Dependent.Register;
+using Tomou.Communication.Responses;
+using Tomou.Communication.Responses.Dependent.Get;
+using Tomou.Communication.Responses.Dependent.Register;
+using Tomou.Communication.Responses.Dependent.Update;
 
 namespace Tomou.Api.Controllers.Dependent;
 [Route("api/[controller]")]

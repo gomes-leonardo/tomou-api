@@ -7,6 +7,7 @@ public class User
     public string Password { get; set; } = string.Empty;
     public bool IsCaregiver { get; set; }
     public ICollection<Dependent> Dependents { get; set; } = new List<Dependent>();
+    public ICollection<Medication> Medications { get; set; } = new List<Medication>();
     public ICollection<PasswordResetToken> PasswordResetTokens { get; set; } = new List<PasswordResetToken>();
 
 }
