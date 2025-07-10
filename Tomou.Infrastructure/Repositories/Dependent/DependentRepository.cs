@@ -60,4 +60,11 @@ internal class DependentRepository : IDependentWriteOnlyRepository, IDependentRe
         _dbContext.Dependents.Remove(result);
         return true;
     }
+
+    public async Task<Domain.Entities.Dependent?> GetByIdAsync(long id)
+    {
+        return await _dbContext.Dependents
+            .AsNoTracking().
+            FirstOrDefaultAsync(d => d.Id == id);
+    }
 }

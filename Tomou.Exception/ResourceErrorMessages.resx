@@ -123,14 +123,20 @@
   <data name="EMAIL_ALREADY_EXISTS" xml:space="preserve">
     <value>E-mail já está em uso.</value>
   </data>
+  <data name="EMPTY_DOSAGE" xml:space="preserve">
+    <value>Dosagem não pode ser vazio.</value>
+  </data>
   <data name="EMPTY_EMAIL" xml:space="preserve">
-    <value>E-mail não pode ser vazio.</value>
+    <value>E-mail é obrigatório.</value>
   </data>
   <data name="EMPTY_NAME" xml:space="preserve">
-    <value>Nome não pode ser vazio.</value>
+    <value>Nome é obrigatório</value>
   </data>
   <data name="EMPTY_PASSWORD" xml:space="preserve">
-    <value>Senha não pode ser vazia.</value>
+    <value>Senha é obrigatório</value>
+  </data>
+  <data name="EMPTY_TIME_TO_TAKE" xml:space="preserve">
+    <value>Horário de tomada é obrigatório.</value>
   </data>
   <data name="EXPIRED_TOKEN" xml:space="preserve">
     <value>Token expirado.</value>
@@ -141,20 +147,26 @@
   <data name="INVALID_CREDENTIALS" xml:space="preserve">
     <value>E-mail ou senha inválidos.</value>
   </data>
+  <data name="INVALID_DEPENDENT_CURRENT_CAREGIVER" xml:space="preserve">
+    <value>Esse dependente não é do cuidador em questão.</value>
+  </data>
   <data name="INVALID_EMAIL" xml:space="preserve">
     <value>E-mail inválido. Utilize um formato válido como exemplo@dominio.com.</value>
   </data>
   <data name="INVALID_PASSWORD" xml:space="preserve">
     <value>A senha deve conter no mínimo 8 caracteres, incluindo ao menos 1 letra maiúscula e 1 caractere especial (ex: ! @ # $ %).</value>
   </data>
+  <data name="INVALID_TIME_FORMAT" xml:space="preserve">
+    <value>Formato de horário inválido. Use HH:mm.</value>
+  </data>
   <data name="INVALID_TOKEN" xml:space="preserve">
-    <value>Token inválido</value>
+    <value>Token inválido.</value>
   </data>
   <data name="ISCAREGIVER_REQUIRED" xml:space="preserve">
     <value>O campo "cuidador" deve ser preenchido.</value>
   </data>
   <data name="LIMIT_EXCEED" xml:space="preserve">
-    <value>Cada cuidador pode registrar no máximo 5 dependentes</value>
+    <value>Cada cuidador pode registrar no máximo 5 dependentes.</value>
   </data>
   <data name="UNAUTHORIZED" xml:space="preserve">
     <value>Usuário não tem permissão para essa ação.</value>

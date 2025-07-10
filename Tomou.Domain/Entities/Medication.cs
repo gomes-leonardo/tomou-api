@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Tomou.Domain.Entities;
-
+﻿namespace Tomou.Domain.Entities;
 public class Medication
 {
     public long Id { get; set; }

@@ -79,7 +79,16 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a E-mail não pode ser vazio..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dosagem não pode ser vazio..
+        /// </summary>
+        public static string EMPTY_DOSAGE {
+            get {
+                return ResourceManager.GetString("EMPTY_DOSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a E-mail é obrigatório..
         /// </summary>
         public static string EMPTY_EMAIL {
             get {
@@ -88,7 +97,7 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Nome não pode ser vazio..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Nome é obrigatório.
         /// </summary>
         public static string EMPTY_NAME {
             get {
@@ -97,11 +106,20 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Senha não pode ser vazia..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Senha é obrigatório.
         /// </summary>
         public static string EMPTY_PASSWORD {
             get {
                 return ResourceManager.GetString("EMPTY_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Horário de tomada é obrigatório..
+        /// </summary>
+        public static string EMPTY_TIME_TO_TAKE {
+            get {
+                return ResourceManager.GetString("EMPTY_TIME_TO_TAKE", resourceCulture);
             }
         }
         
@@ -133,6 +151,15 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Esse dependente não é do cuidador em questão..
+        /// </summary>
+        public static string INVALID_DEPENDENT_CURRENT_CAREGIVER {
+            get {
+                return ResourceManager.GetString("INVALID_DEPENDENT_CURRENT_CAREGIVER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a E-mail inválido. Utilize um formato válido como exemplo@dominio.com..
         /// </summary>
         public static string INVALID_EMAIL {
@@ -151,7 +178,16 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Token inválido.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Formato de horário inválido. Use HH:mm..
+        /// </summary>
+        public static string INVALID_TIME_FORMAT {
+            get {
+                return ResourceManager.GetString("INVALID_TIME_FORMAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Token inválido..
         /// </summary>
         public static string INVALID_TOKEN {
             get {
@@ -169,7 +205,7 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Cada cuidador pode registrar no máximo 5 dependentes.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cada cuidador pode registrar no máximo 5 dependentes..
         /// </summary>
         public static string LIMIT_EXCEED {
             get {
