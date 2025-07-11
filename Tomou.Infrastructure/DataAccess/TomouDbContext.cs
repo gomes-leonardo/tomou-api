@@ -48,16 +48,36 @@ public class TomouDbContext : DbContext
                   .HasForeignKey(m => m.UserId)
                   .OnDelete(DeleteBehavior.Restrict);
 
+            entity.Property(m => m.TimesToTake)
+                .HasConversion(
+                    v => string.Join(',', v.Select(t => t.ToString("HH:mm"))),
+                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(TimeOnly.Parse).ToList()
+            );
+
             entity.HasMany(m => m.Logs)
                   .WithOne(l => l.Medication)
                   .HasForeignKey(l => l.MedicationId);
+
         });
 
 
         modelBuilder.Entity<MedicationLog>(entity =>
         {
             entity.HasKey(l => l.Id);
+
+            entity.Property(l => l.ScheduledFor)
+                  .IsRequired();
+
+            entity.Property(l => l.Status)
+                  .HasConversion<string>()
+                  .IsRequired();
+
+            entity.HasOne(l => l.Medication)
+                  .WithMany(m => m.Logs)
+                  .HasForeignKey(l => l.MedicationId)
+                  .OnDelete(DeleteBehavior.Cascade);
         });
+
 
         modelBuilder.Entity<PasswordResetToken>(entity =>
         {

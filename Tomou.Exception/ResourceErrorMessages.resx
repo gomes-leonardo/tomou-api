@@ -168,6 +168,9 @@
   <data name="LIMIT_EXCEED" xml:space="preserve">
     <value>Cada cuidador pode registrar no máximo 5 dependentes.</value>
   </data>
+  <data name="START_MUST_BE_BEFORE_END" xml:space="preserve">
+    <value>Data início não pode ser maior que data fim.</value>
+  </data>
   <data name="UNAUTHORIZED" xml:space="preserve">
     <value>Usuário não tem permissão para essa ação.</value>
   </data>

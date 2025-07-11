@@ -3,7 +3,12 @@ public class RequestRegisterMedicationsJson
 {
     public string Name { get; set; } = string.Empty;
     public string Dosage { get; set; } = string.Empty;
-    public string TimeToTake { get; set; } = string.Empty;
-    public long? DependentId { get; set; }
 
-}   
+    public DateOnly StartDate { get; set; }
+    public DateOnly EndDate { get; set; }
+    public List<string> TimesToTake { get; set; } = new();
+    public List<string> DaysOfWeek { get; set; } = new();
+
+    public long? DependentId { get; set; }
+}
+

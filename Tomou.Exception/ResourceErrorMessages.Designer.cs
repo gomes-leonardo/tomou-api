@@ -214,6 +214,15 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Data início não pode ser maior que data fim..
+        /// </summary>
+        public static string START_MUST_BE_BEFORE_END {
+            get {
+                return ResourceManager.GetString("START_MUST_BE_BEFORE_END", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Usuário não tem permissão para essa ação..
         /// </summary>
         public static string UNAUTHORIZED {

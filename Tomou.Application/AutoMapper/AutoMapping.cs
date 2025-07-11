@@ -22,7 +22,13 @@ public class AutoMapping : Profile
         CreateMap<RequestRegisterUserJson, User>();
         CreateMap<RequestRegisterDependentJson, Domain.Entities.Dependent>();
         CreateMap<RequestUpdateDependentJson, Domain.Entities.Dependent>();
-        CreateMap<RequestRegisterMedicationsJson, Domain.Entities.Medication>();
+        CreateMap<RequestRegisterMedicationsJson, Medication>()
+        .ForMember(dest => dest.TimesToTake,
+                   opt => opt.MapFrom(src => src.TimesToTake.Select(TimeOnly.Parse).ToList()))
+        .ForMember(dest => dest.DaysOfWeek,
+                   opt => opt.MapFrom(src => src.DaysOfWeek.Select(day => Enum.Parse<DayOfWeek>(day)).ToList()))
+        .ForMember(dest => dest.UserId, opt => opt.Ignore())
+        .ForMember(dest => dest.DependentId, opt => opt.Ignore());
     }
     private void EntityToResponse()
     {
