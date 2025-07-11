@@ -3,6 +3,7 @@ using Tomou.Application.AutoMapper;
 using Tomou.Application.Services.Auth;
 using Tomou.Application.UseCases.Dependent.Delete;
 using Tomou.Application.UseCases.Dependent.GetAll;
+using Tomou.Application.UseCases.Dependent.GetDependentById;
 using Tomou.Application.UseCases.Dependent.Register;
 using Tomou.Application.UseCases.Dependent.Update;
 using Tomou.Application.UseCases.Medications.Register;
@@ -27,7 +28,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IForgotPasswordUseCase, ForgotPasswordUseCase>();
         services.AddScoped<IResetPasswordUseCase, ResetPasswordUseCase>();
         services.AddScoped<IRegisterDependentUseCase, RegisterDependentUseCase>();
-        services.AddScoped<IGetByCaregiverIdUseCase, GetByCaregiverIdUseCase>();
+        services.AddScoped<IGetDependentsUseCase, GetDependentsUseCase>();
+        services.AddScoped<IGetDependentByIdUseCase, GetDependentByIdUseCase>();
         services.AddScoped<IUpdateDependentUseCase, UpdateDependentUseCase>();
         services.AddScoped<IUserContext, UserContext>();
         services.AddScoped<IDeleteDependentUseCase, DeleteDependentUseCase>();

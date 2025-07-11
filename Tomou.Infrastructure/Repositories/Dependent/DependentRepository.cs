@@ -16,7 +16,7 @@ internal class DependentRepository : IDependentWriteOnlyRepository, IDependentRe
         await _dbContext.Dependents.AddAsync(dependent);
     }
 
-    public async Task<List<Domain.Entities.Dependent>> GetByCaregiverId(
+    public async Task<List<Domain.Entities.Dependent>> GetDependents(
         long caregiverId,
         string? nameFilter = null,
         bool ascending = true)

@@ -7,13 +7,13 @@ using Tomou.Exception.ExceptionsBase;
 using Tomou.Exception;
 
 namespace Tomou.Application.UseCases.Dependent.GetAll;
-public class GetByCaregiverIdUseCase : IGetByCaregiverIdUseCase
+public class GetDependentsUseCase : IGetDependentsUseCase
 {
     private readonly IDependentReadOnlyRepository _repository;
     private readonly IMapper _mapper;
     private readonly IUserContext _userContext;
     private readonly IUserReadOnlyRepository _userRepository;
-    public GetByCaregiverIdUseCase(
+    public GetDependentsUseCase(
         IDependentReadOnlyRepository repository,
         IMapper mapper,
         IUserContext userContext,
@@ -34,7 +34,7 @@ public class GetByCaregiverIdUseCase : IGetByCaregiverIdUseCase
             throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
 
 
-        var result = await _repository.GetByCaregiverId(
+        var result = await _repository.GetDependents(
             caregiverId,
             nameFilter,
             ascending

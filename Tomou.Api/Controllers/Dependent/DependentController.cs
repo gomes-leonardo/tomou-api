@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Tomou.Application.UseCases.Dependent.Delete;
 using Tomou.Application.UseCases.Dependent.GetAll;
+using Tomou.Application.UseCases.Dependent.GetDependentById;
 using Tomou.Application.UseCases.Dependent.Register;
 using Tomou.Application.UseCases.Dependent.Update;
 using Tomou.Communication.Requests.Dependent.Register;
@@ -31,8 +32,8 @@ public class DependentController : ControllerBase
     [HttpGet]
     [ProducesResponseType(typeof(ResponseDependentsJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetByCaregiverId(
-       [FromServices] IGetByCaregiverIdUseCase useCase,
+    public async Task<IActionResult> GetDependents(
+       [FromServices] IGetDependentsUseCase useCase,
        [FromQuery] string? name = null,
        [FromQuery] string order = "asc"
       )
@@ -42,6 +43,25 @@ public class DependentController : ControllerBase
         {
             return Ok(response);
         }
+        return NoContent();
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    [ProducesResponseType(typeof(ResponseDependentShortJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+    public async Task<IActionResult> GetDependentById(
+        [FromRoute]long id,
+        [FromServices] IGetDependentByIdUseCase useCase)
+    {
+        var response = await useCase.Execute(id);
+        
+        if(response is not null)
+        {
+            return Ok(response);
+        }
+
         return NoContent();
     }
 
