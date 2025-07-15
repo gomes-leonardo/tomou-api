@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Tomou.Domain.Entities;
 
 namespace Tomou.Infrastructure.DataAccess;
@@ -15,6 +17,12 @@ public class TomouDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        var jsonOptions = new JsonSerializerOptions
+        {
+            Converters = { new JsonStringEnumConverter() }
+        };
+
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(u => u.Id);
@@ -49,10 +57,20 @@ public class TomouDbContext : DbContext
                   .OnDelete(DeleteBehavior.Restrict);
 
             entity.Property(m => m.TimesToTake)
-                .HasConversion(
-                    v => string.Join(',', v.Select(t => t.ToString("HH:mm"))),
-                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(TimeOnly.Parse).ToList()
-            );
+                    .HasConversion(
+                     v => JsonSerializer.Serialize(v, jsonOptions),
+                    dbValue => string.IsNullOrWhiteSpace(dbValue)
+                    ? new List<TimeOnly>()
+                    : JsonSerializer.Deserialize<List<TimeOnly>>(dbValue, jsonOptions)!)
+                    .HasColumnType("longtext");
+
+            entity.Property(m => m.DaysOfWeek)
+                    .HasConversion(
+                    v => JsonSerializer.Serialize(v, jsonOptions),
+                    dbValue => string.IsNullOrWhiteSpace(dbValue)
+                    ? new List<DayOfWeek>()
+                    : JsonSerializer.Deserialize<List<DayOfWeek>>(dbValue, jsonOptions)!)
+                    .HasColumnType("longtext");
 
             entity.HasMany(m => m.Logs)
                   .WithOne(l => l.Medication)

@@ -5,7 +5,8 @@ using Tomou.Communication.Requests.User.Register;
 using Tomou.Communication.Responses.Dependent.Get;
 using Tomou.Communication.Responses.Dependent.Register;
 using Tomou.Communication.Responses.Dependent.Update;
-using Tomou.Communication.Responses.Medications;
+using Tomou.Communication.Responses.Medications.Get;
+using Tomou.Communication.Responses.Medications.Register;
 using Tomou.Communication.Responses.User.Register;
 using Tomou.Domain.Entities;
 
@@ -36,6 +37,7 @@ public class AutoMapping : Profile
         CreateMap<Domain.Entities.Dependent, ResponseCreateDependentJson >();
         CreateMap<Domain.Entities.Dependent, ResponseDependentShortJson >();
         CreateMap<Domain.Entities.Dependent, ResponseUpdatedDependentJson>();
+        CreateMap<Domain.Entities.Medication, ResponseMedicationShortJson >();
         CreateMap<Domain.Entities.Medication, ResponseRegisterMedicationJson>();
 
     }

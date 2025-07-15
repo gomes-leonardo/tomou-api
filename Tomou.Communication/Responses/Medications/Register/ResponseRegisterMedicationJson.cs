@@ -1,4 +1,4 @@
-﻿namespace Tomou.Communication.Responses.Medications;
+﻿namespace Tomou.Communication.Responses.Medications.Register;
 public class ResponseRegisterMedicationJson
 
 {

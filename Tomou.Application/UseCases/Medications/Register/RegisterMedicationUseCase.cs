@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Tomou.Application.Services.Auth;
 using Tomou.Communication.Requests.Medications.Register;
-using Tomou.Communication.Responses.Medications;
+using Tomou.Communication.Responses.Medications.Register;
 using Tomou.Domain.Entities;
 using Tomou.Domain.Repositories.Dependent;
 using Tomou.Domain.Repositories.Medications;

@@ -39,6 +39,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IDependentReadOnlyRepository, DependentRepository>();
         services.AddScoped<IDependentUpdateOnlyRepository, DependentRepository>();
         services.AddScoped<IMedicationsWriteOnlyRepository, MedicationsRepository>();
+        services.AddScoped<IMedicationsReadOnlyRepository, MedicationsRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)

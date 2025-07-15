@@ -41,6 +41,21 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhostFront", policy =>
+    {
+        policy.WithOrigins(
+            "http://localhost:3000", // Next.js (caso use)
+            "http://localhost:8081"  // Expo Web
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
+
+
+
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var secretKey = jwtSettings["SecretKey"];
 
@@ -63,11 +78,10 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseCors("AllowLocalhostFront");
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
