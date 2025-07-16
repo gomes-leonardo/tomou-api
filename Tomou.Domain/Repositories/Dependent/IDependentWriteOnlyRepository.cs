@@ -2,6 +2,6 @@
 public interface IDependentWriteOnlyRepository
 {
     Task Add(Entities.Dependent dependent);
-    Task<bool> Delete(long id);
+    Task<bool> Delete(Guid id);
 
 }

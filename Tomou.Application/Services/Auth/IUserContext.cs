@@ -1,6 +1,6 @@
 ﻿namespace Tomou.Application.Services.Auth;
 public interface IUserContext
 {
-    long GetUserId();
+    Guid GetUserId();
     bool IsCaregiver();
 }

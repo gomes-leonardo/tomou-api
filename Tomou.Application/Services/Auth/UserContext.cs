@@ -10,14 +10,14 @@ public class UserContext : IUserContext
     {
         _httpContextAccessor = httpContextAccessor;
     }
-    public long GetUserId()
+    public Guid GetUserId()
     {
         var userId = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         if (string.IsNullOrWhiteSpace(userId))
             throw new UnauthorizedException();
 
-        return long.Parse(userId);
+        return Guid.Parse(userId);
     }
 
     public bool IsCaregiver()

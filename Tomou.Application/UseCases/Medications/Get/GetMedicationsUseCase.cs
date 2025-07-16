@@ -29,12 +29,12 @@ public class GetMedicationsUseCase : IGetMedicationsUseCase
         _userRepository = userRepository;
         _dependentRepository = dependentRepository;
     }
-    public async Task<ResponseMedicationsJson> Execute(long? userOrDependentId, string? nameFilter = null, bool ascending = true)
+    public async Task<ResponseMedicationsJson> Execute(Guid? userOrDependentId, string? nameFilter = null, bool ascending = true)
     {
         
         var userId = _userContext.GetUserId();
         var user = await _userRepository.GetUserById(userId) ?? throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
-        long finalId;
+        Guid finalId;
 
         if (user.IsCaregiver)
         {

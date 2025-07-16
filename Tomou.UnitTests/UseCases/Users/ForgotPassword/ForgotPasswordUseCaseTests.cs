@@ -14,10 +14,11 @@ public class ForgotPasswordUseCaseTests
     public async Task ShouldGenerateAndSendToken_WhenEmailIsValid()
     {
         var request = new RequestForgotPasswordJson { Email = "teste@tomou.com" };
+        var userId = Guid.NewGuid();
 
         var user = new Domain.Entities.User
         {
-            Id = 1,
+            Id = userId,
             Name = "Leonardo",
             Email = request.Email,
             Password = "password"

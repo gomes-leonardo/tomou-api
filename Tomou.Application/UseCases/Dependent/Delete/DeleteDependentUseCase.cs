@@ -25,7 +25,7 @@ public class DeleteDependentUseCase : IDeleteDependentUseCase
         _repository = repository;
         _userRepository = userRepository;
     }
-    public async Task Execute(long id)
+    public async Task Execute(Guid id)
     {
         var caregiverId = _userContext.GetUserId();
         var user = await _userRepository.GetUserById(caregiverId);

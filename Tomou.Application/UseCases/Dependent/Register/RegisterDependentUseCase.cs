@@ -39,11 +39,12 @@ public class RegisterDependentUseCase : IRegisterDependentUseCase
         var user = await _userReadOnlyRepository.GetUserById(caregiverId);
         if (user is null || user.IsCaregiver is false)
             throw new ForbiddenAccessException(ResourceErrorMessages.FORBIDDEN_ACCESS);
-
+        
         if (user.Dependents.Count >= 5)
             throw new LimitExceededException(ResourceErrorMessages.LIMIT_EXCEED);
 
         var entity = _mapper.Map<Domain.Entities.Dependent>(request);
+      
         entity.CaregiverId = caregiverId;
 
 

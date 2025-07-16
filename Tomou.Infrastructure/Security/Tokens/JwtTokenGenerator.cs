@@ -16,7 +16,7 @@ internal class JwtTokenGenerator : IAccessTokenGenerator
         _secret = secret;
     }
 
-    public string Generate(long userId, string name, string email, bool isCaregiver)
+    public string Generate(Guid userId, string name, string email, bool isCaregiver)
     {
         var claims = new List<Claim>()
         {

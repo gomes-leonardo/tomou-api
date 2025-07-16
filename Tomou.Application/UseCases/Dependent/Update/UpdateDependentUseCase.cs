@@ -31,7 +31,7 @@ public class UpdateDependentUseCase : IUpdateDependentUseCase
         _userContext = userContext;
 
     }
-    public async Task<ResponseUpdatedDependentJson> Execute(RequestUpdateDependentJson request, long id)
+    public async Task<ResponseUpdatedDependentJson> Execute(RequestUpdateDependentJson request, Guid id)
     {
         Validator(request);
         var caregiverId = _userContext.GetUserId();

@@ -17,7 +17,7 @@ internal class MedicationsRepository : IMedicationsWriteOnlyRepository, IMedicat
         await _dbContext.Medications.AddAsync(medication);
     }
 
-    public Task<List<Medication>> GetMedications(long userOrDependentId, bool isCaregiver, string? nameFilter = null, bool ascending = true)
+    public Task<List<Medication>> GetMedications(Guid userOrDependentId, bool isCaregiver, string? nameFilter = null, bool ascending = true)
     {
         var query = _dbContext.Medications.AsNoTracking();
 

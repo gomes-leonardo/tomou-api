@@ -17,7 +17,7 @@ internal class DependentRepository : IDependentWriteOnlyRepository, IDependentRe
     }
 
     public async Task<List<Domain.Entities.Dependent>> GetDependents(
-        long caregiverId,
+        Guid caregiverId,
         string? nameFilter = null,
         bool ascending = true)
     {
@@ -38,7 +38,7 @@ internal class DependentRepository : IDependentWriteOnlyRepository, IDependentRe
         return await query.ToListAsync();
     }
 
-    async Task<Domain.Entities.Dependent?> IDependentUpdateOnlyRepository.GetById(long id)
+    async Task<Domain.Entities.Dependent?> IDependentUpdateOnlyRepository.GetById(Guid id)
     {
         return await _dbContext.Dependents.FirstOrDefaultAsync(dependent => dependent.Id.Equals(id));
     }
@@ -48,7 +48,7 @@ internal class DependentRepository : IDependentWriteOnlyRepository, IDependentRe
         _dbContext.Dependents.Update(dependent);
     }
 
-    public async Task<bool> Delete(long id)
+    public async Task<bool> Delete(Guid id)
     {
         var result = await _dbContext.Dependents.FirstOrDefaultAsync(dependent => dependent.Id.Equals(id));
 
@@ -61,7 +61,7 @@ internal class DependentRepository : IDependentWriteOnlyRepository, IDependentRe
         return true;
     }
 
-    public async Task<Domain.Entities.Dependent?> GetByIdAsync(long id)
+    public async Task<Domain.Entities.Dependent?> GetByIdAsync(Guid id)
     {
         return await _dbContext.Dependents
             .AsNoTracking().

@@ -3,8 +3,8 @@ using Tomou.Domain.Enums;
 
 public class MedicationLog
 {
-    public long Id { get; set; }
-    public long MedicationId { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid MedicationId { get; set; }
     public Medication Medication { get; set; } = null!;
 
     public DateTime ScheduledFor { get; set; }  

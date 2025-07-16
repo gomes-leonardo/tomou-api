@@ -24,7 +24,7 @@ public class RegisterDependentUseCaseTest
         var userContextMock = new Mock<IUserContext>();
 
 
-        var userId = 50;
+        var userId = Guid.NewGuid();
         userContextMock.Setup(d => d.GetUserId()).Returns(userId);
         userReadonlyRepositoryMock.Setup(r => r.GetUserById(userId)).ReturnsAsync(new Tomou.Domain.Entities.User
         {
@@ -79,7 +79,7 @@ public class RegisterDependentUseCaseTest
         var dependentWriteOnlyRepositoryMock = new Mock<IDependentWriteOnlyRepository>();
         var userContextMock = new Mock<IUserContext>();
 
-        var userId = 50;
+        var userId = Guid.NewGuid();
         userContextMock.Setup(d => d.GetUserId()).Returns(userId);
         userReadonlyRepositoryMock.Setup(r => r.GetUserById(userId)).ReturnsAsync(new Tomou.Domain.Entities.User
         {
@@ -110,7 +110,7 @@ public class RegisterDependentUseCaseTest
         var dependentWriteOnlyRepositoryMock = new Mock<IDependentWriteOnlyRepository>();
         var userContextMock = new Mock<IUserContext>();
 
-        var userId = 3332;
+        var userId = Guid.NewGuid();
         userContextMock.Setup(d => d.GetUserId()).Returns(userId);
         userReadonlyRepositoryMock.Setup(r => r.GetUserById(userId))
             .ReturnsAsync((Tomou.Domain.Entities.User?)null);
@@ -137,7 +137,7 @@ public class RegisterDependentUseCaseTest
         var dependentWriteOnlyRepositoryMock = new Mock<IDependentWriteOnlyRepository>();
         var userContextMock = new Mock<IUserContext>();
 
-        var userId = 50;
+        var userId = Guid.NewGuid();
         userContextMock.Setup(d => d.GetUserId()).Returns(userId);
         userReadonlyRepositoryMock.Setup(r => r.GetUserById(userId))
            .ReturnsAsync(new Tomou.Domain.Entities.User

@@ -25,7 +25,7 @@ public class GetDependentByIdUseCase : IGetDependentByIdUseCase
         _userContext = userContext;
         _userRepository = userRepository;
     }
-    public async Task<ResponseDependentShortJson> Execute(long id)
+    public async Task<ResponseDependentShortJson> Execute(Guid id)
     {
         var caregiverId = _userContext.GetUserId();
         var user = await _userRepository.GetUserById(caregiverId);

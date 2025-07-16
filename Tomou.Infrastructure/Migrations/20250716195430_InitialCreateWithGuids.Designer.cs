@@ -11,8 +11,8 @@ using Tomou.Infrastructure.DataAccess;
 namespace Tomou.Infrastructure.Migrations
 {
     [DbContext(typeof(TomouDbContext))]
-    [Migration("20250715130613_ConvertMedicationCollectionsToLongText")]
-    partial class ConvertMedicationCollectionsToLongText
+    [Migration("20250716195430_InitialCreateWithGuids")]
+    partial class InitialCreateWithGuids
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,12 +24,12 @@ namespace Tomou.Infrastructure.Migrations
 
             modelBuilder.Entity("MedicationLog", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("char(36)");
 
-                    b.Property<long>("MedicationId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("MedicationId")
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("ScheduledFor")
                         .HasColumnType("datetime(6)");
@@ -53,12 +53,12 @@ namespace Tomou.Infrastructure.Migrations
 
             modelBuilder.Entity("Tomou.Domain.Entities.Dependent", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("char(36)");
 
-                    b.Property<long>("CaregiverId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("CaregiverId")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -73,16 +73,16 @@ namespace Tomou.Infrastructure.Migrations
 
             modelBuilder.Entity("Tomou.Domain.Entities.Medication", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("DaysOfWeek")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<long?>("DependentId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid?>("DependentId")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Dosage")
                         .IsRequired()
@@ -102,8 +102,8 @@ namespace Tomou.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<long?>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -136,8 +136,8 @@ namespace Tomou.Infrastructure.Migrations
                         .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false);
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -148,9 +148,9 @@ namespace Tomou.Infrastructure.Migrations
 
             modelBuilder.Entity("Tomou.Domain.Entities.User", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Email")
                         .IsRequired()

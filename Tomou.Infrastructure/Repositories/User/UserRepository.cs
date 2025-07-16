@@ -26,7 +26,7 @@ internal class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepositor
         return await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
     }
 
-    public async Task<Domain.Entities.User?> GetUserById(long id)
+    public async Task<Domain.Entities.User?> GetUserById(Guid id)
     {
         return await _dbContext.Users
        .Include(u => u.Dependents)

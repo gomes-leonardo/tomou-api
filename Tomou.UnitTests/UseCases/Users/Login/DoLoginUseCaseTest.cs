@@ -15,9 +15,10 @@ public class DoLoginUseCaseTest
     public async Task ShouldLogin_WhenCredentialsAreValid()
     {
         var request = RequestLoginUserJsonBuilder.Build();
+        var userId = Guid.NewGuid();
         var user = new User
         {
-            Id = 1,
+            Id = userId,
             Email = request.Email,
             Password = "hashed-password"
         };
@@ -64,9 +65,10 @@ public class DoLoginUseCaseTest
     public async Task ShouldThrowException_WhenPasswordIsInvalid()
     {
         var request = RequestLoginUserJsonBuilder.Build();
+        var userId = Guid.NewGuid();
         var user = new User
         {
-            Id = 1,
+            Id = userId,
             Email = request.Email,
             Password = "hashed-password"
         };

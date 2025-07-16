@@ -20,12 +20,14 @@ public class ResetPasswordUseCaseTest
         var encrypterMock = new Mock<IEncrypter>();
         var userReadOnlyRepoMock = new Mock<IUserReadOnlyRepository>();
         var request = RequestResetPasswordJsonBuilder.Build();
+        var userId = Guid.NewGuid();
         var tokenEntity = new PasswordResetToken
+
         {
             Token = request.Token,
             Used = false,
             ExpiresAt = DateTime.UtcNow.AddHours(1),
-            UserId = 999
+            UserId = userId
         };
         
         var user = passwordResetTokenRepoMock.Setup(r => r.GetByToken(request.Token))
@@ -65,6 +67,7 @@ public class ResetPasswordUseCaseTest
         var unityOfWorkMock = new Mock<IUnitOfWork>();
         var encrypterMock = new Mock<IEncrypter>();
         var userReadOnlyRepoMock = new Mock<IUserReadOnlyRepository>();
+        var userId = Guid.NewGuid();
         var request = RequestResetPasswordJsonBuilder.Build();
 
         var tokenEntity = new PasswordResetToken
@@ -72,7 +75,7 @@ public class ResetPasswordUseCaseTest
             Token = request.Token,
             Used = false,
             ExpiresAt = DateTime.UtcNow.AddHours(-1),
-            UserId = 999
+            UserId = userId
         };
         passwordResetTokenRepoMock.Setup(r => r.GetByToken(request.Token))
                   .ReturnsAsync((PasswordResetToken?)tokenEntity);
@@ -90,6 +93,7 @@ public class ResetPasswordUseCaseTest
         var unityOfWorkMock = new Mock<IUnitOfWork>();
         var encrypterMock = new Mock<IEncrypter>();
         var userReadOnlyRepoMock = new Mock<IUserReadOnlyRepository>();
+        var userId = Guid.NewGuid();
         var request = RequestResetPasswordJsonBuilder.Build();
 
         var tokenEntity = new PasswordResetToken
@@ -97,7 +101,7 @@ public class ResetPasswordUseCaseTest
             Token = request.Token,
             Used = true,
             ExpiresAt = DateTime.UtcNow.AddHours(1),
-            UserId = 999
+            UserId = userId
         };
         passwordResetTokenRepoMock.Setup(r => r.GetByToken(request.Token))
                   .ReturnsAsync((PasswordResetToken?)tokenEntity);

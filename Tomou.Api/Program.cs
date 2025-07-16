@@ -5,7 +5,6 @@ using System.Text;
 using Tomou.Api.Filter;
 using Tomou.Application;
 using Tomou.Infrastructure;
-using Tomou.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -97,7 +96,7 @@ app.Run();
 async Task MigrateDatabase()
 {
     await using var scope = app.Services.CreateAsyncScope();
-    await DataBaseMigration.MigrateDatabase(scope.ServiceProvider);
+    //await DataBaseMigration.MigrateDatabase(scope.ServiceProvider);
 }
 
 public partial class Program { }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Diagnostics;
 using Tomou.Application.Services.Auth;
 using Tomou.Communication.Requests.Medications.Register;
 using Tomou.Communication.Responses.Medications.Register;
@@ -53,7 +54,7 @@ public class RegisterMedicationUseCase : IRegisterMedicationUseCase
             if (request.DependentId is null)
                 throw new NotFoundException(ResourceErrorMessages.DEPENDENT_NOT_FOUND);
 
-            var dependent = await _dependent.GetByIdAsync((long)request.DependentId);
+            var dependent = await _dependent.GetByIdAsync((Guid)request.DependentId);
 
             if (dependent is null || dependent.CaregiverId != userId)
                 throw new NotFoundException(ResourceErrorMessages.INVALID_DEPENDENT_CURRENT_CAREGIVER);

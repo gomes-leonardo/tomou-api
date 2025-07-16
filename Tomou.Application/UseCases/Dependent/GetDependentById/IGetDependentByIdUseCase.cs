@@ -3,5 +3,5 @@
 namespace Tomou.Application.UseCases.Dependent.GetDependentById;
 public interface IGetDependentByIdUseCase
 {
-    Task<ResponseDependentShortJson> Execute(long id);
+    Task<ResponseDependentShortJson> Execute(Guid id);
 }

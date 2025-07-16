@@ -9,6 +9,6 @@ public class RequestRegisterMedicationsJson
     public List<string> TimesToTake { get; set; } = new();
     public List<string> DaysOfWeek { get; set; } = new();
 
-    public long? DependentId { get; set; }
+    public Guid? DependentId { get; set; }
 }
 

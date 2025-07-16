@@ -4,5 +4,5 @@ using Tomou.Communication.Responses.Dependent.Update;
 namespace Tomou.Application.UseCases.Dependent.Update;
 public interface IUpdateDependentUseCase
 {
-    Task<ResponseUpdatedDependentJson> Execute(RequestUpdateDependentJson request, long id);
+    Task<ResponseUpdatedDependentJson> Execute(RequestUpdateDependentJson request, Guid id);
 }

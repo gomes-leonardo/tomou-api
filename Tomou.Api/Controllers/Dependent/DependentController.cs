@@ -52,7 +52,7 @@ public class DependentController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
 
     public async Task<IActionResult> GetDependentById(
-        [FromRoute]long id,
+        [FromRoute]Guid id,
         [FromServices] IGetDependentByIdUseCase useCase)
     {
         var response = await useCase.Execute(id);
@@ -73,7 +73,7 @@ public class DependentController : ControllerBase
     public async Task<IActionResult> Update(
         [FromBody] RequestUpdateDependentJson request,
         [FromServices] IUpdateDependentUseCase useCase,
-        [FromRoute] long id)
+        [FromRoute] Guid id)
     {
        var result = await useCase.Execute(request, id);
 
@@ -87,7 +87,7 @@ public class DependentController : ControllerBase
 
     public async Task<IActionResult> Delete(
         [FromServices] IDeleteDependentUseCase useCase,
-        [FromRoute] long id)
+        [FromRoute] Guid id)
     {
         await useCase.Execute(id);
         return NoContent();

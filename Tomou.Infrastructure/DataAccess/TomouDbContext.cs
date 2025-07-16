@@ -26,6 +26,8 @@ public class TomouDbContext : DbContext
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(u => u.Id);
+            entity.Property(u => u.Id)
+                .HasColumnType("char(36)");
             entity.HasMany(u => u.Dependents)
                 .WithOne(d => d.Caregiver)
                 .HasForeignKey(d => d.CaregiverId);
@@ -37,6 +39,8 @@ public class TomouDbContext : DbContext
         modelBuilder.Entity<Dependent>(entity =>
         {
             entity.HasKey(d => d.Id);
+            entity.Property(d => d.Id)
+                .HasColumnType("char(36)");
             entity.HasMany(d => d.Medications)
                     .WithOne(m => m.Dependent)
                     .HasForeignKey(m => m.DependentId);
@@ -45,7 +49,8 @@ public class TomouDbContext : DbContext
         modelBuilder.Entity<Medication>(entity =>
         {
             entity.HasKey(m => m.Id);
-
+            entity.Property(m => m.Id)
+                .HasColumnType("char(36)");
             entity.HasOne(m => m.Dependent)
                   .WithMany(d => d.Medications)
                   .HasForeignKey(m => m.DependentId)

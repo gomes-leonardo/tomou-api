@@ -24,16 +24,26 @@ public class MedicationsController : ControllerBase
     }
     [HttpGet]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ResponseMedicationsJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseMedicationShortJson), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get(
         [FromServices] IGetMedicationsUseCase useCase,
-        [FromQuery] long? userOrDependentId = null,
+        [FromQuery] Guid? id = null,
         [FromQuery] string? name = null,
         [FromQuery] string order = "asc")
     {
         var ascending = order.Equals("asc", StringComparison.OrdinalIgnoreCase);
-        var response = await useCase.Execute(userOrDependentId, name, ascending);
+        var response = await useCase.Execute(id, name, ascending);
 
         return Ok(response);
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseMedicationsJson), StatusCodes.Status200OK)]
+
+    public async Task <IActionResult> GetById()
+    {
+        return Ok();
     }
 }
