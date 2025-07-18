@@ -7,6 +7,7 @@ using Tomou.Application.UseCases.Dependent.GetDependentById;
 using Tomou.Application.UseCases.Dependent.Register;
 using Tomou.Application.UseCases.Dependent.Update;
 using Tomou.Application.UseCases.Medications.Get;
+using Tomou.Application.UseCases.Medications.GetById;
 using Tomou.Application.UseCases.Medications.Register;
 using Tomou.Application.UseCases.User.ForgotPassword;
 using Tomou.Application.UseCases.User.Login;
@@ -24,21 +25,24 @@ public static class DependencyInjectionExtension
 
     private static void AddUseCases(IServiceCollection services)
     {
+        services.AddScoped<IUserContext, UserContext>();
+
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
+
         services.AddScoped<IForgotPasswordUseCase, ForgotPasswordUseCase>();
         services.AddScoped<IResetPasswordUseCase, ResetPasswordUseCase>();
-        services.AddScoped<IRegisterDependentUseCase, RegisterDependentUseCase>();
 
+        services.AddScoped<IRegisterDependentUseCase, RegisterDependentUseCase>();
         services.AddScoped<IGetDependentsUseCase, GetDependentsUseCase>();
         services.AddScoped<IGetDependentByIdUseCase, GetDependentByIdUseCase>();
         services.AddScoped<IUpdateDependentUseCase, UpdateDependentUseCase>();
         services.AddScoped<IDeleteDependentUseCase, DeleteDependentUseCase>();
 
-        services.AddScoped<IUserContext, UserContext>();
 
         services.AddScoped<IRegisterMedicationUseCase, RegisterMedicationUseCase>();
         services.AddScoped<IGetMedicationsUseCase, GetMedicationsUseCase>();
+        services.AddScoped<IGetMedicationByIdUseCase, GetMedicationByIdUseCase>();
 
     }
 

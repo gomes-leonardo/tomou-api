@@ -17,13 +17,13 @@ internal class MedicationsRepository : IMedicationsWriteOnlyRepository, IMedicat
         await _dbContext.Medications.AddAsync(medication);
     }
 
-    public Task<List<Medication>> GetMedications(Guid userOrDependentId, bool isCaregiver, string? nameFilter = null, bool ascending = true)
+    public Task<List<Medication>> GetMedications(Guid id, bool isCaregiver, string? nameFilter = null, bool ascending = true)
     {
         var query = _dbContext.Medications.AsNoTracking();
 
         query = isCaregiver
-        ? query.Where(m => m.DependentId == userOrDependentId)
-        : query.Where(m => m.UserId == userOrDependentId);
+        ? query.Where(m => m.DependentId == id)
+        : query.Where(m => m.UserId == id);
 
         if (!string.IsNullOrEmpty(nameFilter))
         {
@@ -37,4 +37,14 @@ internal class MedicationsRepository : IMedicationsWriteOnlyRepository, IMedicat
         return query.ToListAsync();
 
     }
+
+    public Task<Medication?> GetMedicationsById(Guid id, bool isCaregiver, Guid medicationId)
+    {
+        var query = _dbContext.Medications.AsNoTracking();
+        query = isCaregiver
+          ? query.Where(m => m.DependentId == id && m.Id == medicationId)
+          : query.Where(m => m.UserId == id && m.Id == medicationId);
+        return query.SingleOrDefaultAsync();
+    }
+
 }

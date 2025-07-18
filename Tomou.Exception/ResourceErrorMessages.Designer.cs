@@ -214,6 +214,15 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Medicamento não encontrado..
+        /// </summary>
+        public static string MEDICATION_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("MEDICATION_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Data início não pode ser maior que data fim..
         /// </summary>
         public static string START_MUST_BE_BEFORE_END {

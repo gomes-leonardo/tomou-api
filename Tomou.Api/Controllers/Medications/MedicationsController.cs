@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tomou.Application.UseCases.Medications.Get;
+using Tomou.Application.UseCases.Medications.GetById;
 using Tomou.Application.UseCases.Medications.Register;
 using Tomou.Communication.Requests.Medications.Register;
 using Tomou.Communication.Responses;
@@ -38,12 +39,23 @@ public class MedicationsController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{id}")]
+    [Route("{medicamentId}")]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ResponseMedicationsJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseMedicationShortJson), StatusCodes.Status200OK)]
 
-    public async Task <IActionResult> GetById()
+    public async Task <IActionResult> GetById(
+        [FromRoute] Guid medicamentId,
+        [FromServices] IGetMedicationByIdUseCase useCase,
+        [FromQuery] Guid? id = null)
     {
-        return Ok();
+
+        var response = await useCase.Execute(id, medicamentId);
+
+        if (response is not null)
+        {
+            return Ok(response);
+        }
+
+        return NoContent();
     }
 }

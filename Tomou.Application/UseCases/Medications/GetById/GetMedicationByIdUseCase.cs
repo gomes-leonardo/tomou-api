@@ -1,22 +1,21 @@
 ﻿using AutoMapper;
 using Tomou.Application.Services.Auth;
 using Tomou.Communication.Responses.Medications.Get;
+using Tomou.Domain.Repositories.Dependent;
 using Tomou.Domain.Repositories.Medications;
 using Tomou.Domain.Repositories.User;
 using Tomou.Exception.ExceptionsBase;
 using Tomou.Exception;
-using Tomou.Domain.Repositories.Dependent;
 
-namespace Tomou.Application.UseCases.Medications.Get;
-public class GetMedicationsUseCase : IGetMedicationsUseCase
+namespace Tomou.Application.UseCases.Medications.GetById;
+public class GetMedicationByIdUseCase : IGetMedicationByIdUseCase
 {
     private readonly IMedicationsReadOnlyRepository _repository;
     private readonly IMapper _mapper;
     private readonly IUserReadOnlyRepository _userRepository;
     private readonly IDependentReadOnlyRepository _dependentRepository;
     private readonly IUserContext _userContext;
-
-    public GetMedicationsUseCase(
+    public GetMedicationByIdUseCase(
         IMedicationsReadOnlyRepository repository,
         IMapper mapper,
         IUserContext userContext,
@@ -29,35 +28,33 @@ public class GetMedicationsUseCase : IGetMedicationsUseCase
         _userRepository = userRepository;
         _dependentRepository = dependentRepository;
     }
-    public async Task<ResponseMedicationsJson> Execute(Guid? id, string? nameFilter = null, bool ascending = true)
+    public async Task<ResponseMedicationShortJson> Execute(Guid? id, Guid medicamentId)
     {
-        
         var userId = _userContext.GetUserId();
         var user = await _userRepository.GetUserById(userId) ?? throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
-        Guid finalId;
+        Guid ownerId;
 
         if (user.IsCaregiver)
         {
-            if(id is null)
+            if (id is null)
                 throw new NotFoundException(ResourceErrorMessages.DEPENDENT_NOT_FOUND);
 
             var dependent = await _dependentRepository.GetByIdAsync(id.Value);
             if (dependent == null)
                 throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
 
-            finalId = id.Value;
+            ownerId = id.Value;
         }
 
         else
         {
-            finalId = userId;
+            ownerId = userId;
         }
 
-        var result = await _repository.GetMedications(finalId, user.IsCaregiver, nameFilter, ascending);
+        var medication = await _repository.GetMedicationsById(ownerId, user.IsCaregiver, medicamentId) ?? throw new NotFoundException(ResourceErrorMessages.MEDICATION_NOT_FOUND);
 
-        return new ResponseMedicationsJson
-        {
-            Medications = _mapper.Map<List<ResponseMedicationShortJson>>(result)
-        };
+        return _mapper.Map<ResponseMedicationShortJson>(medication);
     }
+
+   
 }

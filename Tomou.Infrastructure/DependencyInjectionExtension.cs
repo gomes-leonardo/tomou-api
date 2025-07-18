@@ -31,13 +31,17 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+
         services.AddScoped<IEncrypter, Encrypter>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();
         services.AddScoped<IEmailService, FakeEmailService>();
+
+        services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();
+
         services.AddScoped<IDependentWriteOnlyRepository, DependentRepository>();
         services.AddScoped<IDependentReadOnlyRepository, DependentRepository>();
         services.AddScoped<IDependentUpdateOnlyRepository, DependentRepository>();
+
         services.AddScoped<IMedicationsWriteOnlyRepository, MedicationsRepository>();
         services.AddScoped<IMedicationsReadOnlyRepository, MedicationsRepository>();
     }

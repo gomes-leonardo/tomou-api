@@ -168,6 +168,9 @@
   <data name="LIMIT_EXCEED" xml:space="preserve">
     <value>Cada cuidador pode registrar no máximo 5 dependentes.</value>
   </data>
+  <data name="MEDICATION_NOT_FOUND" xml:space="preserve">
+    <value>Medicamento não encontrado.</value>
+  </data>
   <data name="START_MUST_BE_BEFORE_END" xml:space="preserve">
     <value>Data início não pode ser maior que data fim.</value>
   </data>
