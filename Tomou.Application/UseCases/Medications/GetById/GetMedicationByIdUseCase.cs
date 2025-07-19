@@ -31,7 +31,7 @@ public class GetMedicationByIdUseCase : IGetMedicationByIdUseCase
     public async Task<ResponseMedicationShortJson> Execute(Guid? id, Guid medicamentId)
     {
         var userId = _userContext.GetUserId();
-        var user = await _userRepository.GetUserById(userId) ?? throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
+        var user = await _userRepository.GetUserById(userId) ?? throw new NotFoundException(ResourceErrorMessages.USER_NOT_FOUND);
         Guid ownerId;
 
         if (user.IsCaregiver)
@@ -39,11 +39,7 @@ public class GetMedicationByIdUseCase : IGetMedicationByIdUseCase
             if (id is null)
                 throw new NotFoundException(ResourceErrorMessages.DEPENDENT_NOT_FOUND);
 
-            var dependent = await _dependentRepository.GetByIdAsync(id.Value);
-            if (dependent == null)
-                throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
-
-            ownerId = id.Value;
+                ownerId = id.Value;
         }
 
         else

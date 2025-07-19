@@ -47,4 +47,8 @@ internal class MedicationsRepository : IMedicationsWriteOnlyRepository, IMedicat
         return query.SingleOrDefaultAsync();
     }
 
+    public void Update(Domain.Entities.Medication medication)
+    {
+        _dbContext.Medications.Update(medication);
+    }
 }

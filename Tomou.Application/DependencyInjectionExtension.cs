@@ -9,6 +9,7 @@ using Tomou.Application.UseCases.Dependent.Update;
 using Tomou.Application.UseCases.Medications.Get;
 using Tomou.Application.UseCases.Medications.GetById;
 using Tomou.Application.UseCases.Medications.Register;
+using Tomou.Application.UseCases.Medications.Update;
 using Tomou.Application.UseCases.User.ForgotPassword;
 using Tomou.Application.UseCases.User.Login;
 using Tomou.Application.UseCases.User.Register;
@@ -43,6 +44,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterMedicationUseCase, RegisterMedicationUseCase>();
         services.AddScoped<IGetMedicationsUseCase, GetMedicationsUseCase>();
         services.AddScoped<IGetMedicationByIdUseCase, GetMedicationByIdUseCase>();
+        services.AddScoped<IUpdateMedicationUseCase, UpdateMedicationUseCase>();
 
     }
 

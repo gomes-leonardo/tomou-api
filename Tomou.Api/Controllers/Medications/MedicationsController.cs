@@ -3,10 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 using Tomou.Application.UseCases.Medications.Get;
 using Tomou.Application.UseCases.Medications.GetById;
 using Tomou.Application.UseCases.Medications.Register;
+using Tomou.Application.UseCases.Medications.Update;
+using Tomou.Communication.Requests.Dependent.Register;
 using Tomou.Communication.Requests.Medications.Register;
+using Tomou.Communication.Requests.Medications.Update;
 using Tomou.Communication.Responses;
+using Tomou.Communication.Responses.Dependent.Update;
 using Tomou.Communication.Responses.Medications.Get;
 using Tomou.Communication.Responses.Medications.Register;
+using Tomou.Communication.Responses.Medications.Update;
 
 namespace Tomou.Api.Controllers.Medications;
 
@@ -58,4 +63,19 @@ public class MedicationsController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpPut("{medicamentId}")]
+    [ProducesResponseType(typeof(ResponseUpdatedMedicationJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update(
+          [FromRoute] Guid medicamentId,
+          [FromServices] IUpdateMedicationUseCase useCase,
+          [FromQuery] Guid? id,
+          [FromBody] RequestUpdateMedicationJson request)
+    {
+       
+        var response = await useCase.Execute(id, medicamentId, request);
+        return Ok(response);
+    }
+
 }
