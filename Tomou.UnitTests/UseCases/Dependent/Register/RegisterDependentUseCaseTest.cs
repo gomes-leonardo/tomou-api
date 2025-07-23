@@ -1,6 +1,5 @@
 ﻿namespace Tomou.UnitTests.UseCases.Dependent.Register;
 using AutoMapper;
-using IdentityModel.OidcClient;
 using Moq;
 using Shouldly;
 using Tomou.Application.Services.Auth;
