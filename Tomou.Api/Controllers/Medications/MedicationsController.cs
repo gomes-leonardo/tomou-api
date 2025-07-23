@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Tomou.Application.UseCases.Medications.Delete;
 using Tomou.Application.UseCases.Medications.Get;
 using Tomou.Application.UseCases.Medications.GetById;
 using Tomou.Application.UseCases.Medications.Register;
 using Tomou.Application.UseCases.Medications.Update;
-using Tomou.Communication.Requests.Dependent.Register;
 using Tomou.Communication.Requests.Medications.Register;
 using Tomou.Communication.Requests.Medications.Update;
 using Tomou.Communication.Responses;
-using Tomou.Communication.Responses.Dependent.Update;
 using Tomou.Communication.Responses.Medications.Get;
 using Tomou.Communication.Responses.Medications.Register;
 using Tomou.Communication.Responses.Medications.Update;
@@ -47,7 +46,6 @@ public class MedicationsController : ControllerBase
     [Route("{medicamentId}")]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ResponseMedicationShortJson), StatusCodes.Status200OK)]
-
     public async Task <IActionResult> GetById(
         [FromRoute] Guid medicamentId,
         [FromServices] IGetMedicationByIdUseCase useCase,
@@ -78,4 +76,16 @@ public class MedicationsController : ControllerBase
         return Ok(response);
     }
 
+    [HttpDelete("{medicamentId}")]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+
+    public async Task<IActionResult> Delete(
+        [FromRoute] Guid medicamentId,
+        [FromServices] IDeleteMedicationUseCase useCase,
+        [FromQuery] Guid? id
+        )
+    {
+        await useCase.Execute(id, medicamentId);
+        return NoContent();
+    }
 }

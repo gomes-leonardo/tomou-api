@@ -45,8 +45,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowLocalhostFront", policy =>
     {
         policy.WithOrigins(
-            "http://localhost:3000", // Next.js (caso use)
-            "http://localhost:8081"  // Expo Web
+            "http://localhost:3000",
+            "http://localhost:8081"  
         )
         .AllowAnyHeader()
         .AllowAnyMethod();

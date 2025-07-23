@@ -147,6 +147,9 @@
   <data name="INVALID_CREDENTIALS" xml:space="preserve">
     <value>E-mail ou senha inválidos.</value>
   </data>
+  <data name="INVALID_DAY_OF_WEEK" xml:space="preserve">
+    <value>Pelo menos um dia da semana deve ser selecionado.</value>
+  </data>
   <data name="INVALID_DEPENDENT_CURRENT_CAREGIVER" xml:space="preserve">
     <value>Esse dependente não é do cuidador em questão.</value>
   </data>

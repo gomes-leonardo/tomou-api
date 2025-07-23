@@ -50,7 +50,7 @@ internal class DependentRepository : IDependentWriteOnlyRepository, IDependentRe
 
     public async Task<bool> Delete(Guid id)
     {
-        var result = await _dbContext.Dependents.FirstOrDefaultAsync(dependent => dependent.Id.Equals(id));
+        var result = await _dbContext.Dependents.FirstOrDefaultAsync(dependent => dependent.Id == id);
 
         if (result == null)
         {

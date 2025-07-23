@@ -53,11 +53,13 @@ public class RegisterMedicationUseCase : IRegisterMedicationUseCase
         {
             if (request.DependentId is null)
                 throw new NotFoundException(ResourceErrorMessages.DEPENDENT_NOT_FOUND);
-
+           
             var dependent = await _dependent.GetByIdAsync((Guid)request.DependentId);
-
-            if (dependent is null || dependent.CaregiverId != userId)
+            if (dependent is null)
                 throw new NotFoundException(ResourceErrorMessages.INVALID_DEPENDENT_CURRENT_CAREGIVER);
+
+            if (dependent.CaregiverId != userId)
+                throw new ForbiddenAccessException(ResourceErrorMessages.FORBIDDEN_ACCESS);
 
             medication.DependentId = dependent.Id;
         }
@@ -77,7 +79,6 @@ public class RegisterMedicationUseCase : IRegisterMedicationUseCase
 
         var response = _mapper.Map<ResponseRegisterMedicationJson>(medication);
         response.Message = $"Medicamento {medication.Name} cadastrado(a) com sucesso";
-
         return response;
     }
 

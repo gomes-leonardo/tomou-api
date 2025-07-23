@@ -17,6 +17,19 @@ internal class MedicationsRepository : IMedicationsWriteOnlyRepository, IMedicat
         await _dbContext.Medications.AddAsync(medication);
     }
 
+    public async Task<bool> Delete(Guid medicamentId)
+    {
+        var result = await _dbContext.Medications.FirstOrDefaultAsync(m => m.Id == medicamentId);
+
+        if(result is null)
+        {
+            return false;
+        }
+
+        _dbContext.Medications.Remove(result);
+        return true;
+    }
+
     public Task<List<Medication>> GetMedications(Guid id, bool isCaregiver, string? nameFilter = null, bool ascending = true)
     {
         var query = _dbContext.Medications.AsNoTracking();

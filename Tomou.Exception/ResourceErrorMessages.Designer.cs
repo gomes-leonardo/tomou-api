@@ -151,6 +151,15 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pelo menos um dia da semana deve ser selecionado..
+        /// </summary>
+        public static string INVALID_DAY_OF_WEEK {
+            get {
+                return ResourceManager.GetString("INVALID_DAY_OF_WEEK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Esse dependente não é do cuidador em questão..
         /// </summary>
         public static string INVALID_DEPENDENT_CURRENT_CAREGIVER {
