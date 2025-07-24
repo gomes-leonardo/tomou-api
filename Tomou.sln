@@ -29,8 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomou.UnitTests", "Tomou.Un
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomou.TestUtils", "Tomou.TestUtils\Tomou.TestUtils.csproj", "{ACD0F70A-F4D2-45D8-8711-930D68C65B82}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomou.IntegrationTests", "Tomou.IntegrationTests\Tomou.IntegrationTests.csproj", "{82113447-E17C-4393-A30C-CC5E94F4B4C5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,10 +67,6 @@ Global
 		{ACD0F70A-F4D2-45D8-8711-930D68C65B82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACD0F70A-F4D2-45D8-8711-930D68C65B82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACD0F70A-F4D2-45D8-8711-930D68C65B82}.Release|Any CPU.Build.0 = Release|Any CPU
-		{82113447-E17C-4393-A30C-CC5E94F4B4C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82113447-E17C-4393-A30C-CC5E94F4B4C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82113447-E17C-4393-A30C-CC5E94F4B4C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82113447-E17C-4393-A30C-CC5E94F4B4C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,7 +80,6 @@ Global
 		{2743B155-1D43-4A82-A6DD-21EBDEB15E7E} = {71F178E2-8853-4F35-8056-1249A2D6683F}
 		{C115E484-2D0E-48AD-A74F-2FEC52D52B88} = {A3866707-4AC1-44BE-8F33-B76BFF6806D8}
 		{ACD0F70A-F4D2-45D8-8711-930D68C65B82} = {A3866707-4AC1-44BE-8F33-B76BFF6806D8}
-		{82113447-E17C-4393-A30C-CC5E94F4B4C5} = {A3866707-4AC1-44BE-8F33-B76BFF6806D8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F041F93-6487-4073-94F3-AD3E90428903}

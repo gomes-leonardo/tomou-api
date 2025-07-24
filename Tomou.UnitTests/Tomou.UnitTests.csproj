@@ -35,7 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Dependent\GetById\" />
     <Folder Include="UseCases\Dependent\Update\" />
     <Folder Include="Validators\Medication\" />
   </ItemGroup>
