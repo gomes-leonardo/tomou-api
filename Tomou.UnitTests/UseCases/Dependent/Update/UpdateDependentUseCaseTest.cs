@@ -7,6 +7,7 @@ using Tomou.Communication.Responses.Dependent.Update;
 using Tomou.Domain.Repositories.Dependent;
 using Tomou.Domain.Repositories.UnitOfWork;
 using Tomou.Domain.Repositories.User;
+using Tomou.Exception.ExceptionsBase;
 using Tomou.TestUtils.Dependent.Update.Request;
 
 namespace Tomou.UnitTests.UseCases.Dependent.Update;
@@ -76,4 +77,79 @@ public class UpdateDependentUseCaseTest
 
         unitOfWorkMock.Verify(u => u.Commit(), Times.Once);
     }
-}
+
+    [Fact]
+    public async Task ShouldForbiddenAccessExceptionWhenUserIsNotFound()
+    {
+        var mapperMock = new Mock<IMapper>();
+        var unitOfWorkMock = new Mock<IUnitOfWork>();
+        var userReadonlyRepositoryMock = new Mock<IUserReadOnlyRepository>();
+        var dependentWriteOnlyRepositoryMock = new Mock<IDependentUpdateOnlyRepository>();
+        var userContextMock = new Mock<IUserContext>();
+
+        var userId = Guid.NewGuid();
+        var dependentId = Guid.NewGuid();
+
+        userContextMock.Setup(d => d.GetUserId()).Returns(userId);
+
+        userReadonlyRepositoryMock
+            .Setup(r => r.GetUserById(userId))
+            .ReturnsAsync((Tomou.Domain.Entities.User?)null);
+
+        var useCase = new UpdateDependentUseCase(
+            dependentWriteOnlyRepositoryMock.Object,
+            mapperMock.Object,
+            unitOfWorkMock.Object,
+            userReadonlyRepositoryMock.Object,
+            userContextMock.Object);
+
+        var request = RequestUpdateDependentJsonBuilder.Build();
+
+        await Should.ThrowAsync<ForbiddenAccessException>(async () =>
+        {
+            await useCase.Execute(request, dependentId);
+        });
+    }
+        [Fact]
+        public async Task ShouldThrowNotFoundExceptionWhenDependentIsNotFound()
+        {
+            var mapperMock = new Mock<IMapper>();
+            var unitOfWorkMock = new Mock<IUnitOfWork>();
+            var userReadonlyRepositoryMock = new Mock<IUserReadOnlyRepository>();
+            var dependentWriteOnlyRepositoryMock = new Mock<IDependentUpdateOnlyRepository>();
+            var userContextMock = new Mock<IUserContext>();
+
+            var userId = Guid.NewGuid();
+            var dependentId = Guid.NewGuid();
+
+            userContextMock.Setup(d => d.GetUserId()).Returns(userId);
+
+            userReadonlyRepositoryMock
+                .Setup(r => r.GetUserById(userId))
+                .ReturnsAsync(new Tomou.Domain.Entities.User
+                {
+                    Id = userId,
+                    IsCaregiver = true
+                });
+
+            dependentWriteOnlyRepositoryMock
+                .Setup(r => r.GetById(dependentId))
+                .ReturnsAsync((Tomou.Domain.Entities.Dependent?)null);
+
+            var useCase = new UpdateDependentUseCase(
+                dependentWriteOnlyRepositoryMock.Object,
+                mapperMock.Object,
+                unitOfWorkMock.Object,
+                userReadonlyRepositoryMock.Object,
+                userContextMock.Object);
+
+            var request = RequestUpdateDependentJsonBuilder.Build();
+
+            await Should.ThrowAsync<NotFoundException>(async () =>
+            {
+                await useCase.Execute(request, dependentId);
+            });
+        }
+
+    }
+
