@@ -34,9 +34,4 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\Dependent\Update\" />
-    <Folder Include="Validators\Medication\" />
-  </ItemGroup>
-
 </Project>

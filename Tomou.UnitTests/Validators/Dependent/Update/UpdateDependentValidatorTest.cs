@@ -1,9 +1,7 @@
-﻿using Tomou.Application.UseCases.Dependent.Register;
-using Shouldly;
-using Tomou.TestUtils.Dependent.Request;
+﻿using Shouldly;
 using Tomou.Application.UseCases.Dependent.Update;
-using Tomou.TestUtils.Dependent.Request.Update;
 using Tomou.Exception;
+using Tomou.TestUtils.Dependent.Update.Request;
 
 namespace Tomou.UnitTests.Validators.Dependent.Update;
 public class UpdateDependentValidatorTest

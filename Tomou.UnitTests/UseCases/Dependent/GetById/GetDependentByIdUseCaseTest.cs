@@ -113,11 +113,9 @@ public class GetDependentByIdUseCaseTest
             .Returns(caregiverId);
 
         userReadOnlyRepositoryMock
-            .Setup(r => r.GetUserById(caregiverId))
-            .ReturnsAsync(new User
-            {
-                IsCaregiver = true
-            });
+        .Setup(r => r.GetUserById(caregiverId))
+        .ReturnsAsync((User?)null);
+
 
         var useCase = new GetDependentByIdUseCase(
             dependentReadOnlyRepositoryMock.Object,

@@ -6,6 +6,7 @@ using Shouldly;
 using Tomou.Application.Services.Auth;
 using Tomou.Application.UseCases.Dependent.GetAll;
 using Tomou.Communication.Responses.Dependent.Get;
+using Tomou.Domain.Entities;
 using Tomou.Domain.Repositories.Dependent;
 using Tomou.Domain.Repositories.User;
 using Tomou.Exception.ExceptionsBase;
@@ -111,13 +112,11 @@ public class GetDependentUseCaseTest
 
         var caregiverId = Guid.NewGuid();
         userContextMock.Setup(d => d.GetUserId()).Returns(caregiverId);
+
         userReadOnlyRepositoryMock
-            .Setup(r => r.GetUserById(caregiverId))
-            .ReturnsAsync(new Tomou.Domain.Entities.User
-            {
-                IsCaregiver = false,
-                Dependents = new List<Tomou.Domain.Entities.Dependent>()
-            });
+        .Setup(r => r.GetUserById(caregiverId))
+        .ReturnsAsync((User?)null);
+
 
 
         var useCase = new GetDependentsUseCase(

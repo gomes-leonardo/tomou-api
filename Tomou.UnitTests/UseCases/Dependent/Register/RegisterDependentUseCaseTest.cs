@@ -9,7 +9,7 @@ using Tomou.Domain.Repositories.Dependent;
 using Tomou.Domain.Repositories.UnitOfWork;
 using Tomou.Domain.Repositories.User;
 using Tomou.Exception.ExceptionsBase;
-using Tomou.TestUtils.Dependent.Request;
+using Tomou.TestUtils.Dependent.Register.Request;
 
 public class RegisterDependentUseCaseTest
 {

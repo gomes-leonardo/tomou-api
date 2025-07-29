@@ -1,7 +1,7 @@
 ﻿using Shouldly;
 using Tomou.Application.UseCases.Dependent.Register;
 using Tomou.Exception;
-using Tomou.TestUtils.Dependent.Request;
+using Tomou.TestUtils.Dependent.Register.Request;
 
 namespace Tomou.UnitTests.Validators.Dependent.Register;
 public class RegisterDependentValidatorTest

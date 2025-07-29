@@ -1,4 +1,4 @@
-﻿namespace Tomou.TestUtils.Dependent.Request.Update;
+﻿namespace Tomou.TestUtils.Dependent.Update.Request;
 using Bogus;
 using Tomou.Communication.Requests.Dependent.Register;
 
