@@ -19,7 +19,7 @@ public class UpdateDependentUseCaseTest
         var mapperMock = new Mock<IMapper>();
         var unitOfWorkMock = new Mock<IUnitOfWork>();
         var userReadonlyRepositoryMock = new Mock<IUserReadOnlyRepository>();
-        var dependentWriteOnlyRepositoryMock = new Mock<IDependentUpdateOnlyRepository>();
+        var dependentUpdateOnlyRepository = new Mock<IDependentUpdateOnlyRepository>();
         var userContextMock = new Mock<IUserContext>();
 
         var userId = Guid.NewGuid();
@@ -43,7 +43,7 @@ public class UpdateDependentUseCaseTest
               Message = ""
           });
 
-        dependentWriteOnlyRepositoryMock.Setup(r => r.GetById(dependentId))
+        dependentUpdateOnlyRepository.Setup(r => r.GetById(dependentId))
             .ReturnsAsync(new Tomou.Domain.Entities.Dependent
             {
                 Id = dependentId,
@@ -51,7 +51,7 @@ public class UpdateDependentUseCaseTest
                 CaregiverId = userId
             });
 
-        dependentWriteOnlyRepositoryMock
+        dependentUpdateOnlyRepository
             .Setup(r => r.Update(It.IsAny<Tomou.Domain.Entities.Dependent>()))
             .Verifiable();
 
@@ -61,7 +61,7 @@ public class UpdateDependentUseCaseTest
         .Verifiable();
 
        var useCase = new UpdateDependentUseCase(
-            dependentWriteOnlyRepositoryMock.Object,
+            dependentUpdateOnlyRepository.Object,
             mapperMock.Object,
             unitOfWorkMock.Object,
             userReadonlyRepositoryMock.Object,
@@ -73,7 +73,7 @@ public class UpdateDependentUseCaseTest
         response.Name.ShouldBe(request.Name);
         response.Message.ShouldBe("Dependente atualizado(a) com sucesso");
 
-        dependentWriteOnlyRepositoryMock.Verify(r => r.Update(It.IsAny<Tomou.Domain.Entities.Dependent>()), Times.Once);
+        dependentUpdateOnlyRepository.Verify(r => r.Update(It.IsAny<Tomou.Domain.Entities.Dependent>()), Times.Once);
 
         unitOfWorkMock.Verify(u => u.Commit(), Times.Once);
     }
