@@ -34,7 +34,7 @@ public class GetMedicationsUseCase : IGetMedicationsUseCase
         
         var userId = _userContext.GetUserId();
         var user = await _userRepository.GetUserById(userId) ?? throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
-        Guid finalId;
+        Guid ownerId;
 
         if (user.IsCaregiver)
         {
@@ -45,15 +45,19 @@ public class GetMedicationsUseCase : IGetMedicationsUseCase
             if (dependent == null)
                 throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
 
-            finalId = id.Value;
+            var isOwner = dependent.CaregiverId == userId;
+            if(!isOwner)
+                throw new ForbiddenAccessException(ResourceErrorMessages.INVALID_DEPENDENT_CURRENT_CAREGIVER);
+
+            ownerId = id.Value;
         }
 
         else
         {
-            finalId = userId;
+            ownerId = userId;
         }
 
-        var result = await _repository.GetMedications(finalId, user.IsCaregiver, nameFilter, ascending);
+        var result = await _repository.GetMedications(ownerId, user.IsCaregiver, nameFilter, ascending);
 
         return new ResponseMedicationsJson
         {

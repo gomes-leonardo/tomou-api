@@ -109,4 +109,36 @@ public class DeleteDependentUseCaseTest
             await useCase.Execute(dependentId);
         });
     }
+
+    [Fact]
+    public async Task ShouldThrowForbiddenAccessExceptionWhenUserIsNotCaregiver()
+    {
+        var unitOfWorkMock = new Mock<IUnitOfWork>();
+        var userReadonlyRepositoryMock = new Mock<IUserReadOnlyRepository>();
+        var dependentWriteOnlyRepositoryMock = new Mock<IDependentWriteOnlyRepository>();
+        var userContextMock = new Mock<IUserContext>();
+
+        var userId = Guid.NewGuid();
+        var dependentId = Guid.NewGuid();
+
+        userContextMock.Setup(d => d.GetUserId()).Returns(userId);
+        userReadonlyRepositoryMock.Setup(r => r.GetUserById(userId)).ReturnsAsync(new Tomou.Domain.Entities.User
+        {
+            Id = userId,
+            IsCaregiver = false
+        });
+
+        var useCase = new DeleteDependentUseCase(
+            unitOfWorkMock.Object,
+            dependentWriteOnlyRepositoryMock.Object,
+            userContextMock.Object,
+            userReadonlyRepositoryMock.Object
+        );
+
+        await Should.ThrowAsync<ForbiddenAccessException>(async () =>
+        {
+            await useCase.Execute(dependentId);
+        });
+    }
+
 }

@@ -32,8 +32,14 @@ public class GetDependentByIdUseCase : IGetDependentByIdUseCase
 
         if (user is null || user.IsCaregiver is false)
             throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
-
+        
         var result = await _repository.GetByIdAsync(id);
+
+        if(result is null)
+            throw new NotFoundException(ResourceErrorMessages.DEPENDENT_NOT_FOUND);
+
+        if(result.CaregiverId != user.Id)
+            throw new ForbiddenAccessException(ResourceErrorMessages.FORBIDDEN_ACCESS);
 
         return _mapper.Map<ResponseDependentShortJson>(result);
     }

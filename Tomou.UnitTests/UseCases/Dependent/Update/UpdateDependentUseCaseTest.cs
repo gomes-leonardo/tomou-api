@@ -151,5 +151,46 @@ public class UpdateDependentUseCaseTest
             });
         }
 
+    [Fact]
+    public async Task ShouldThrowForbiddenAccessExceptionWhenDependentBelongsToAnotherCaregiver()
+    {
+        var mapperMock = new Mock<IMapper>();
+        var unitOfWorkMock = new Mock<IUnitOfWork>();
+        var userReadonlyRepositoryMock = new Mock<IUserReadOnlyRepository>();
+        var dependentUpdateOnlyRepository = new Mock<IDependentUpdateOnlyRepository>();
+        var userContextMock = new Mock<IUserContext>();
+
+        var userId = Guid.NewGuid();
+        var otherCaregiverId = Guid.NewGuid();
+        var dependentId = Guid.NewGuid();
+
+        userContextMock.Setup(d => d.GetUserId()).Returns(userId);
+        userReadonlyRepositoryMock.Setup(r => r.GetUserById(userId)).ReturnsAsync(new Tomou.Domain.Entities.User
+        {
+            IsCaregiver = true,
+            Id = userId,
+        });
+
+        dependentUpdateOnlyRepository.Setup(r => r.GetById(dependentId)).ReturnsAsync(new Tomou.Domain.Entities.Dependent
+        {
+            Id = dependentId,
+            Name = "Outro Dependente",
+            CaregiverId = otherCaregiverId 
+        });
+
+        var useCase = new UpdateDependentUseCase(
+            dependentUpdateOnlyRepository.Object,
+            mapperMock.Object,
+            unitOfWorkMock.Object,
+            userReadonlyRepositoryMock.Object,
+            userContextMock.Object
+        );
+
+        var request = RequestUpdateDependentJsonBuilder.Build();
+
+        await Should.ThrowAsync<ForbiddenAccessException>(() => useCase.Execute(request, dependentId));
     }
+
+
+}
 

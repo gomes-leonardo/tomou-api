@@ -1,9 +1,9 @@
-﻿using Bogus;
-using Tomou.Communication.Requests.Medications.Register;
+using Bogus;
+using Tomou.Communication.Requests.Medications.Update;
 
-namespace Tomou.TestUtils.Medication.Register.Request
+namespace Tomou.TestUtils.Medication.Update.Request
 {
-    public static class RequestRegisterMedicationJsonBuilder
+    public static class RequestUpdateMedicationJsonBuilder
     {
         private static readonly string[] items = new[]
         {
@@ -12,9 +12,10 @@ namespace Tomou.TestUtils.Medication.Register.Request
             "Ibuprofeno",
             "Amoxicilina"
         };
-        public static RequestRegisterMedicationsJson Build()
+
+        public static RequestUpdateMedicationJson Build()
         {
-            return new Faker<RequestRegisterMedicationsJson>()
+            return new Faker<RequestUpdateMedicationJson>()
                 .RuleFor(x => x.Name, f => f.PickRandom(items))
                 .RuleFor(x => x.Dosage, f =>
                 {
@@ -38,9 +39,7 @@ namespace Tomou.TestUtils.Medication.Register.Request
                         Enum.GetNames(typeof(DayOfWeek))
                             .Select(d => d.ToLowerInvariant()),
                         f.Random.Int(1, 3))
-                    .ToList())
-                .RuleFor(x => x.DependentId, f =>
-                    f.Random.Guid());
+                    .ToList());
         }
     }
-}
+} 

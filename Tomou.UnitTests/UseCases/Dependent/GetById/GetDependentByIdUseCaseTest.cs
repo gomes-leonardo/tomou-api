@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Moq;
 using Shouldly;
 using Tomou.Application.Services.Auth;
@@ -127,5 +128,80 @@ public class GetDependentByIdUseCaseTest
         await Should.ThrowAsync<ForbiddenAccessException>(() => useCase.Execute(caregiverId));
 
     }
+
+    [Fact]
+    public async Task ShouldThrowNotFoundExceptionWhenDependentDoesNotExist()
+    {
+        var mapperMock = new Mock<IMapper>();
+        var dependentReadOnlyRepositoryMock = new Mock<IDependentReadOnlyRepository>();
+        var userContextMock = new Mock<IUserContext>();
+        var userReadOnlyRepositoryMock = new Mock<IUserReadOnlyRepository>();
+
+        var caregiverId = Guid.NewGuid();
+        var dependentId = Guid.NewGuid();
+
+        userContextMock.Setup(c => c.GetUserId()).Returns(caregiverId);
+
+        userReadOnlyRepositoryMock.Setup(r => r.GetUserById(caregiverId))
+            .ReturnsAsync(new User
+            {
+                Id = caregiverId,
+                IsCaregiver = true
+            });
+
+        dependentReadOnlyRepositoryMock
+            .Setup(r => r.GetByIdAsync(dependentId))
+            .ReturnsAsync((Tomou.Domain.Entities.Dependent?)null);
+
+        var useCase = new GetDependentByIdUseCase(
+            dependentReadOnlyRepositoryMock.Object,
+            mapperMock.Object,
+            userContextMock.Object,
+            userReadOnlyRepositoryMock.Object
+        );
+
+        await Should.ThrowAsync<NotFoundException>(() => useCase.Execute(dependentId));
+    }
+
+    [Fact]
+    public async Task ShouldThrowForbiddenAccessExceptionWhenDependentBelongsToAnotherCaregiver()
+    {
+        var mapperMock = new Mock<IMapper>();
+        var dependentReadOnlyRepositoryMock = new Mock<IDependentReadOnlyRepository>();
+        var userContextMock = new Mock<IUserContext>();
+        var userReadOnlyRepositoryMock = new Mock<IUserReadOnlyRepository>();
+
+        var caregiverId = Guid.NewGuid();
+        var otherCaregiverId = Guid.NewGuid();
+        var dependentId = Guid.NewGuid();
+
+        userContextMock.Setup(c => c.GetUserId()).Returns(caregiverId);
+
+        userReadOnlyRepositoryMock.Setup(r => r.GetUserById(caregiverId))
+            .ReturnsAsync(new User
+            {
+                Id = caregiverId,
+                IsCaregiver = true
+            });
+
+        dependentReadOnlyRepositoryMock
+            .Setup(r => r.GetByIdAsync(dependentId))
+            .ReturnsAsync(new Tomou.Domain.Entities.Dependent
+            {
+                Id = dependentId,
+                Name = "Outro Dependente",
+                CaregiverId = otherCaregiverId
+            });
+
+        var useCase = new GetDependentByIdUseCase(
+            dependentReadOnlyRepositoryMock.Object,
+            mapperMock.Object,
+            userContextMock.Object,
+            userReadOnlyRepositoryMock.Object
+        );
+
+        await Should.ThrowAsync<ForbiddenAccessException>(() => useCase.Execute(dependentId));
+    }
+
 
 }

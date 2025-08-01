@@ -39,7 +39,7 @@ public class GetMedicationByIdUseCase : IGetMedicationByIdUseCase
             if (id is null)
                 throw new NotFoundException(ResourceErrorMessages.DEPENDENT_NOT_FOUND);
 
-                ownerId = id.Value;
+            ownerId = id.Value;
         }
 
         else
@@ -48,6 +48,11 @@ public class GetMedicationByIdUseCase : IGetMedicationByIdUseCase
         }
 
         var medication = await _repository.GetMedicationsById(ownerId, user.IsCaregiver, medicamentId) ?? throw new NotFoundException(ResourceErrorMessages.MEDICATION_NOT_FOUND);
+
+        var isMedicationOwner = medication.UserId == userId || medication.Dependent?.CaregiverId == userId;
+
+        if (!isMedicationOwner)
+            throw new ForbiddenAccessException(ResourceErrorMessages.INVALID_DEPENDENT_CURRENT_CAREGIVER);
 
         return _mapper.Map<ResponseMedicationShortJson>(medication);
     }

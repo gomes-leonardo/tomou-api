@@ -42,6 +42,9 @@ public class UpdateDependentUseCase : IUpdateDependentUseCase
 
         var dependent = await _repository.GetById(id) ?? throw new NotFoundException(ResourceErrorMessages.DEPENDENT_NOT_FOUND);
 
+        if (caregiverId != dependent.CaregiverId)
+            throw new ForbiddenAccessException(ResourceErrorMessages.FORBIDDEN_ACCESS);
+
         _repository.Update(dependent);
         _mapper.Map(request, dependent);
 

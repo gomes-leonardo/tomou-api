@@ -32,10 +32,10 @@ public class DeleteMedicationUseCase : IDeleteMedicationUseCase
     public async Task Execute(Guid? id, Guid medicamentId)
     {
         var userId = _userContext.GetUserId();
-        var user = await _userRepository.GetUserById(userId) ?? throw new NotFoundException(ResourceErrorMessages.USER_NOT_FOUND);
+        var user = await _userRepository.GetUserById(userId)
+            ?? throw new NotFoundException(ResourceErrorMessages.USER_NOT_FOUND);
 
         Guid ownerId;
-
         if (user.IsCaregiver)
         {
             if (id is null)
@@ -43,18 +43,26 @@ public class DeleteMedicationUseCase : IDeleteMedicationUseCase
 
             ownerId = id.Value;
         }
-
         else
         {
+            if (id is not null)
+                throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
+
             ownerId = userId;
         }
 
         var medication = await _medicationReadOnlyRepository
-       .GetMedicationsById(ownerId, user.IsCaregiver, medicamentId)
-       ?? throw new NotFoundException(ResourceErrorMessages.MEDICATION_NOT_FOUND);
+            .GetMedicationsById(ownerId, user.IsCaregiver, medicamentId)
+            ?? throw new NotFoundException(ResourceErrorMessages.MEDICATION_NOT_FOUND);
+
+        var isOwner = medication.UserId == userId
+                   || medication.Dependent?.CaregiverId == userId;
+
+        if (!isOwner)
+            throw new ForbiddenAccessException(ResourceErrorMessages.INVALID_DEPENDENT_CURRENT_CAREGIVER);
 
         await _repository.Delete(medication.Id);
         await _unitOfWork.Commit();
-
     }
+
 }
