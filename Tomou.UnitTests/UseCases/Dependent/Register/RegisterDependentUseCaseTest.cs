@@ -127,42 +127,6 @@ public class RegisterDependentUseCaseTest
        () => useCase.Execute(request));
     }
 
-    [Fact]
-    public async Task ShouldThrowLimitExceededExceptionWhenUserHasFiveDependents()
-    {
-        var mapperMock = new Mock<IMapper>();
-        var unitOfWorkMock = new Mock<IUnitOfWork>();
-        var userReadonlyRepositoryMock = new Mock<IUserReadOnlyRepository>();
-        var dependentWriteOnlyRepositoryMock = new Mock<IDependentWriteOnlyRepository>();
-        var userContextMock = new Mock<IUserContext>();
-
-        var userId = Guid.NewGuid();
-        userContextMock.Setup(d => d.GetUserId()).Returns(userId);
-        userReadonlyRepositoryMock.Setup(r => r.GetUserById(userId))
-           .ReturnsAsync(new Tomou.Domain.Entities.User
-           {
-               Id = userId,
-               IsCaregiver = true,
-               Dependents = Enumerable.Range(1, 5)
-                      .Select(i => new Tomou.Domain.Entities.Dependent())
-                      .ToList()
-           });
-
-        var request = RequestRegisterDependentJsonBuilder.Build();
-
-        var useCase = new RegisterDependentUseCase(
-           mapperMock.Object,
-            unitOfWorkMock.Object,
-            dependentWriteOnlyRepositoryMock.Object,
-            userReadonlyRepositoryMock.Object,
-            userContextMock.Object
-        );
-
-        await Should.ThrowAsync<LimitExceededException>(
-            () => useCase.Execute(request));
-
-    }
-
     
 }
 

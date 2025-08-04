@@ -205,15 +205,6 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Cada cuidador pode registrar no máximo 5 dependentes..
-        /// </summary>
-        public static string LIMIT_EXCEED {
-            get {
-                return ResourceManager.GetString("LIMIT_EXCEED", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Medicamento não encontrado..
         /// </summary>
         public static string MEDICATION_NOT_FOUND {
