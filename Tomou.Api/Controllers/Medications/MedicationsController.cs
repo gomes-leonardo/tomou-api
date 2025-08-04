@@ -27,6 +27,8 @@ public class MedicationsController : ControllerBase
         var result = await useCase.Execute(request);
         return Created(string.Empty, result);
     }
+
+
     [HttpGet]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ResponseMedicationShortJson), StatusCodes.Status200OK)]
