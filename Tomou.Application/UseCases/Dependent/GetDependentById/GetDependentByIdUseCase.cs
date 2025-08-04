@@ -39,7 +39,7 @@ public class GetDependentByIdUseCase : IGetDependentByIdUseCase
             throw new NotFoundException(ResourceErrorMessages.DEPENDENT_NOT_FOUND);
 
         if(result.CaregiverId != user.Id)
-            throw new ForbiddenAccessException(ResourceErrorMessages.FORBIDDEN_ACCESS);
+            throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
 
         return _mapper.Map<ResponseDependentShortJson>(result);
     }

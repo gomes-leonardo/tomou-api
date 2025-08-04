@@ -38,7 +38,7 @@ public class RegisterDependentUseCase : IRegisterDependentUseCase
 
         var user = await _userReadOnlyRepository.GetUserById(caregiverId);
         if (user is null || user.IsCaregiver is false)
-            throw new ForbiddenAccessException(ResourceErrorMessages.FORBIDDEN_ACCESS);
+            throw new ForbiddenAccessException(ResourceErrorMessages.ONLY_CAREGIVERS_CAN_CREATE_DEPENDENTS);
         
         if (user.Dependents.Count >= 5)
             throw new LimitExceededException(ResourceErrorMessages.LIMIT_EXCEED);

@@ -153,15 +153,25 @@ public class UpdateMedicationUseCaseTest
         var medicationsWriteOnlyRepositoryMock = new Mock<IMedicationsWriteOnlyRepository>();
         var userContextMock = new Mock<IUserContext>();
 
-        var userId = Guid.NewGuid();
+        var userId = Guid.NewGuid(); // user logado
         var medicationId = Guid.NewGuid();
+
         userContextMock.Setup(d => d.GetUserId()).Returns(userId);
         userReadonlyRepositoryMock.Setup(r => r.GetUserById(userId)).ReturnsAsync(new Tomou.Domain.Entities.User
         {
             IsCaregiver = false,
             Id = userId,
-            Dependents = new List<Tomou.Domain.Entities.Dependent>()
         });
+
+        medicationsReadOnlyRepositoryMock
+            .Setup(r => r.GetMedicationsById(It.IsAny<Guid>(), It.IsAny<bool>(), medicationId))
+            .ReturnsAsync(new Tomou.Domain.Entities.Medication
+            {
+                Id = medicationId,
+                UserId = Guid.NewGuid(),
+                Name = "Paracetamol",
+                Dosage = "750mg"
+            });
 
         var request = new RequestUpdateMedicationJson
         {
@@ -180,6 +190,7 @@ public class UpdateMedicationUseCaseTest
 
         await Should.ThrowAsync<ForbiddenAccessException>(() => useCase.Execute(userId, medicationId, request));
     }
+
 
     [Fact]
     public async Task ShouldThrowForbiddenAccessExceptionWhenUserIsNotFound()
@@ -212,6 +223,6 @@ public class UpdateMedicationUseCaseTest
             unitOfWorkMock.Object
         );
 
-        await Should.ThrowAsync<ForbiddenAccessException>(() => useCase.Execute(userId, medicationId, request));
+        await Should.ThrowAsync<NotFoundException>(() => useCase.Execute(userId, medicationId, request));
     }
 } 

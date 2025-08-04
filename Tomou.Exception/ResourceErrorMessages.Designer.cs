@@ -79,7 +79,7 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Dosagem não pode ser vazio..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dosagem não pode ser vazia..
         /// </summary>
         public static string EMPTY_DOSAGE {
             get {
@@ -129,15 +129,6 @@ namespace Tomou.Exception {
         public static string EXPIRED_TOKEN {
             get {
                 return ResourceManager.GetString("EXPIRED_TOKEN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Somente cuidadores podem criar dependentes..
-        /// </summary>
-        public static string FORBIDDEN_ACCESS {
-            get {
-                return ResourceManager.GetString("FORBIDDEN_ACCESS", resourceCulture);
             }
         }
         
@@ -232,6 +223,15 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Somente cuidadores podem criar dependentes..
+        /// </summary>
+        public static string ONLY_CAREGIVERS_CAN_CREATE_DEPENDENTS {
+            get {
+                return ResourceManager.GetString("ONLY_CAREGIVERS_CAN_CREATE_DEPENDENTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Data início não pode ser maior que data fim..
         /// </summary>
         public static string START_MUST_BE_BEFORE_END {
@@ -241,7 +241,7 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Usuário não tem permissão para essa ação..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Você não tem permissão para acesssar este recurso..
         /// </summary>
         public static string UNAUTHORIZED {
             get {

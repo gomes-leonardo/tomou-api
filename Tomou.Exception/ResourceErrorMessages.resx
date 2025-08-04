@@ -124,7 +124,7 @@
     <value>E-mail já está em uso.</value>
   </data>
   <data name="EMPTY_DOSAGE" xml:space="preserve">
-    <value>Dosagem não pode ser vazio.</value>
+    <value>Dosagem não pode ser vazia.</value>
   </data>
   <data name="EMPTY_EMAIL" xml:space="preserve">
     <value>E-mail é obrigatório.</value>
@@ -140,9 +140,6 @@
   </data>
   <data name="EXPIRED_TOKEN" xml:space="preserve">
     <value>Token expirado.</value>
-  </data>
-  <data name="FORBIDDEN_ACCESS" xml:space="preserve">
-    <value>Somente cuidadores podem criar dependentes.</value>
   </data>
   <data name="INVALID_CREDENTIALS" xml:space="preserve">
     <value>E-mail ou senha inválidos.</value>
@@ -174,11 +171,14 @@
   <data name="MEDICATION_NOT_FOUND" xml:space="preserve">
     <value>Medicamento não encontrado.</value>
   </data>
+  <data name="ONLY_CAREGIVERS_CAN_CREATE_DEPENDENTS" xml:space="preserve">
+    <value>Somente cuidadores podem criar dependentes.</value>
+  </data>
   <data name="START_MUST_BE_BEFORE_END" xml:space="preserve">
     <value>Data início não pode ser maior que data fim.</value>
   </data>
   <data name="UNAUTHORIZED" xml:space="preserve">
-    <value>Usuário não tem permissão para essa ação.</value>
+    <value>Você não tem permissão para acesssar este recurso.</value>
   </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erro desconhecido.</value>

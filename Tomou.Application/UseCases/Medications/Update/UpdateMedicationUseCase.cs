@@ -50,15 +50,21 @@ public class UpdateMedicationUseCase : IUpdateMedicationUseCase
 
             ownerId = id.Value;
         }
-
         else
         {
+            if (id is not null && id != userId)
+                throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
+
             ownerId = userId;
         }
         var medication = await _medicationReadOnlyRepository
        .GetMedicationsById(ownerId, user.IsCaregiver, medicamentId)
        ?? throw new NotFoundException(ResourceErrorMessages.MEDICATION_NOT_FOUND);
-       
+
+        var isOwner = medication.UserId == userId || medication.Dependent?.CaregiverId == userId;
+        if (!isOwner)
+            throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
+
         _repository.Update(medication);
         _mapper.Map(request, medication);
         await _unitOfWork.Commit();

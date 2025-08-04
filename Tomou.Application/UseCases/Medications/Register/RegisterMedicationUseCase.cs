@@ -59,7 +59,7 @@ public class RegisterMedicationUseCase : IRegisterMedicationUseCase
                 throw new NotFoundException(ResourceErrorMessages.INVALID_DEPENDENT_CURRENT_CAREGIVER);
 
             if (dependent.CaregiverId != userId)
-                throw new ForbiddenAccessException(ResourceErrorMessages.FORBIDDEN_ACCESS);
+                throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
 
             medication.DependentId = dependent.Id;
         }
@@ -68,7 +68,7 @@ public class RegisterMedicationUseCase : IRegisterMedicationUseCase
         {
             if(request.DependentId is not null)
             {
-                throw new ForbiddenAccessException(ResourceErrorMessages.FORBIDDEN_ACCESS);
+                throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
             }
 
             medication.UserId = userId;
