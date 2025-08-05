@@ -11,12 +11,12 @@ internal class DependentRepository : IDependentWriteOnlyRepository, IDependentRe
     {
         _dbContext = dbContext;
     }
-    public async Task Add(Domain.Entities.Dependent dependent)
+    public async Task AddAsync(Domain.Entities.Dependent dependent)
     {
         await _dbContext.Dependents.AddAsync(dependent);
     }
 
-    public async Task<List<Domain.Entities.Dependent>> GetDependents(
+    public async Task<IReadOnlyList<Domain.Entities.Dependent>> GetByCaregiverId(
         Guid caregiverId,
         string? nameFilter = null,
         bool ascending = true)
@@ -38,24 +38,17 @@ internal class DependentRepository : IDependentWriteOnlyRepository, IDependentRe
         return await query.ToListAsync();
     }
 
-    async Task<Domain.Entities.Dependent?> IDependentUpdateOnlyRepository.GetById(Guid id)
-    {
-        return await _dbContext.Dependents.FirstOrDefaultAsync(dependent => dependent.Id.Equals(id));
-    }
-
-    public void Update(Domain.Entities.Dependent dependent)
+    public void UpdateAsync(Domain.Entities.Dependent dependent)
     {
         _dbContext.Dependents.Update(dependent);
     }
 
-    public async Task<bool> Delete(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         var result = await _dbContext.Dependents.FirstOrDefaultAsync(dependent => dependent.Id == id);
 
-        if (result == null)
-        {
+        if (result is null)
             return false;
-        }
 
         _dbContext.Dependents.Remove(result);
         return true;
@@ -67,4 +60,6 @@ internal class DependentRepository : IDependentWriteOnlyRepository, IDependentRe
             .AsNoTracking().
             FirstOrDefaultAsync(d => d.Id == id);
     }
+
+   
 }

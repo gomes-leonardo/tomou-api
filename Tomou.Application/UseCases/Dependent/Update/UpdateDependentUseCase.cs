@@ -15,19 +15,22 @@ public class UpdateDependentUseCase : IUpdateDependentUseCase
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUserReadOnlyRepository _userReadOnlyRepository;
+    private readonly IDependentReadOnlyRepository _dependentReadOnlyRepository;
     private readonly IUserContext _userContext;
 
     public UpdateDependentUseCase(
         IDependentUpdateOnlyRepository repository,
+        IDependentReadOnlyRepository dependentReadOnlyRepository,
+        IUserReadOnlyRepository userReadOnlyRepository,
         IMapper mapper,
         IUnitOfWork unitOfWork,
-        IUserReadOnlyRepository userReadOnlyRepository,
         IUserContext userContext)
     {
         _mapper = mapper;
         _repository = repository;
         _unitOfWork = unitOfWork;
         _userReadOnlyRepository = userReadOnlyRepository;
+        _dependentReadOnlyRepository = dependentReadOnlyRepository;
         _userContext = userContext;
 
     }
@@ -40,12 +43,12 @@ public class UpdateDependentUseCase : IUpdateDependentUseCase
         if(user is null || user.IsCaregiver is false)
             throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
 
-        var dependent = await _repository.GetById(id) ?? throw new NotFoundException(ResourceErrorMessages.DEPENDENT_NOT_FOUND);
+        var dependent = await _dependentReadOnlyRepository.GetByIdAsync(id) ?? throw new NotFoundException(ResourceErrorMessages.DEPENDENT_NOT_FOUND);
 
         if (caregiverId != dependent.CaregiverId)
             throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
 
-        _repository.Update(dependent);
+        _repository.UpdateAsync(dependent);
         _mapper.Map(request, dependent);
 
         await _unitOfWork.Commit();

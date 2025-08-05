@@ -45,7 +45,7 @@ public class RegisterDependentUseCase : IRegisterDependentUseCase
         entity.CaregiverId = caregiverId;
 
 
-        await _depentWriteOnlyRepository.Add(entity);
+        await _depentWriteOnlyRepository.AddAsync(entity);
         await _unitOfWork.Commit();
 
        var response = _mapper.Map<ResponseCreateDependentJson>(entity);

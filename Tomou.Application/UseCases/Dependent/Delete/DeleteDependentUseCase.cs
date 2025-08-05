@@ -33,7 +33,7 @@ public class DeleteDependentUseCase : IDeleteDependentUseCase
         if(user is null || user.IsCaregiver == false)
             throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
 
-        var result = await _repository.Delete(id);
+        var result = await _repository.DeleteAsync(id);
         if(result is false)
         {
             throw new NotFoundException(ResourceErrorMessages.DEPENDENT_NOT_FOUND);

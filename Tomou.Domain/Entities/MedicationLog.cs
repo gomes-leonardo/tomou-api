@@ -1,5 +1,6 @@
-﻿using Tomou.Domain.Entities;
-using Tomou.Domain.Enums;
+﻿using Tomou.Domain.Enums;
+namespace Tomou.Domain.Entities;
+
 
 public class MedicationLog
 {

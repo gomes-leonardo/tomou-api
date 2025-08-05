@@ -34,7 +34,7 @@ public class GetDependentsUseCase : IGetDependentsUseCase
             throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
 
 
-        var result = await _repository.GetDependents(
+        var result = await _repository.GetByCaregiverId(
             caregiverId,
             nameFilter,
             ascending

@@ -56,7 +56,7 @@ public class GetDependentUseCaseTest
 
 
         dependentReadOnlyRepositoryMock
-            .Setup(d => d.GetDependents(caregiverId, null, true))
+            .Setup(d => d.GetByCaregiverId(caregiverId, null, true))
             .ReturnsAsync(dependents);
 
         var useCase = new GetDependentsUseCase(
@@ -150,7 +150,7 @@ public class GetDependentUseCaseTest
             });
 
         dependentReadOnlyRepositoryMock
-            .Setup(d => d.GetDependents(caregiverId, null, true))
+            .Setup(d => d.GetByCaregiverId(caregiverId, null, true))
             .ReturnsAsync(new List<Dependent>());
 
         mapperMock
