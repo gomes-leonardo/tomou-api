@@ -4,12 +4,14 @@ using Tomou.Communication.Requests.Medications.Update;
 using Tomou.Communication.Responses.Medications.Update;
 using Tomou.Domain.Repositories.Dependent;
 using Tomou.Domain.Repositories.Medications;
+using Tomou.Domain.Repositories.Medications.Filters;
 using Tomou.Domain.Repositories.UnitOfWork;
 using Tomou.Domain.Repositories.User;
 using Tomou.Exception;
 using Tomou.Exception.ExceptionsBase;
 
 namespace Tomou.Application.UseCases.Medications.Update;
+
 public class UpdateMedicationUseCase : IUpdateMedicationUseCase
 {
     private readonly IMedicationsWriteOnlyRepository _repository;
@@ -39,13 +41,13 @@ public class UpdateMedicationUseCase : IUpdateMedicationUseCase
     }
     public async Task<ResponseUpdatedMedicationJson> Execute(Guid? id, Guid medicamentId, RequestUpdateMedicationJson request)
     {
-       var userId = _userContext.GetUserId();
-       var user = await _userRepository.GetUserById(userId) ?? throw new NotFoundException(ResourceErrorMessages.USER_NOT_FOUND);
-       Guid ownerId;
+        var userId = _userContext.GetUserId();
+        var user = await _userRepository.GetUserById(userId) ?? throw new NotFoundException(ResourceErrorMessages.USER_NOT_FOUND);
+        Guid ownerId;
 
         if (user.IsCaregiver)
         {
-            if(id is null || !id.HasValue)
+            if (id is null || !id.HasValue)
                 throw new NotFoundException(ResourceErrorMessages.DEPENDENT_NOT_FOUND);
 
             ownerId = id.Value;
@@ -57,8 +59,11 @@ public class UpdateMedicationUseCase : IUpdateMedicationUseCase
 
             ownerId = userId;
         }
+
+        var filter = new MedicationsFilterById(ownerId, user.IsCaregiver, medicamentId);
+
         var medication = await _medicationReadOnlyRepository
-       .GetMedicationsById(ownerId, user.IsCaregiver, medicamentId)
+       .GetMedicationsById(filter)
        ?? throw new NotFoundException(ResourceErrorMessages.MEDICATION_NOT_FOUND);
 
         var isOwner = medication.UserId == userId || medication.Dependent?.CaregiverId == userId;

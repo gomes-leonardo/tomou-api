@@ -5,6 +5,7 @@ using Tomou.Domain.Repositories.Dependent;
 using Tomou.Domain.Repositories.User;
 using Tomou.Exception.ExceptionsBase;
 using Tomou.Exception;
+using Tomou.Domain.Repositories.Dependent.Filters;
 
 namespace Tomou.Application.UseCases.Dependent.GetAll;
 public class GetDependentsUseCase : IGetDependentsUseCase
@@ -34,10 +35,14 @@ public class GetDependentsUseCase : IGetDependentsUseCase
             throw new ForbiddenAccessException(ResourceErrorMessages.UNAUTHORIZED);
 
 
+
+        var filter = new DependentFilter(
+            caregiverId: caregiverId,
+            nameContains: nameFilter,
+            ascending: ascending
+        );
         var result = await _repository.GetByCaregiverId(
-            caregiverId,
-            nameFilter,
-            ascending
+            filter
         );
 
         return new ResponseDependentsJson

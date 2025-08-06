@@ -46,7 +46,7 @@ public class RegisterDependentUseCaseTest
               Message = ""
           });
         dependentWriteOnlyRepositoryMock
-            .Setup(r => r.Add(It.IsAny<Tomou.Domain.Entities.Dependent>()))
+            .Setup(r => r.AddAsync(It.IsAny<Tomou.Domain.Entities.Dependent>()))
             .Returns(Task.CompletedTask)
             .Verifiable();
 

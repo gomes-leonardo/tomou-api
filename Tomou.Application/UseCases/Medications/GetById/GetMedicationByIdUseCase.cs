@@ -6,6 +6,7 @@ using Tomou.Domain.Repositories.Medications;
 using Tomou.Domain.Repositories.User;
 using Tomou.Exception.ExceptionsBase;
 using Tomou.Exception;
+using Tomou.Domain.Repositories.Medications.Filters;
 
 namespace Tomou.Application.UseCases.Medications.GetById;
 public class GetMedicationByIdUseCase : IGetMedicationByIdUseCase
@@ -47,7 +48,9 @@ public class GetMedicationByIdUseCase : IGetMedicationByIdUseCase
             ownerId = userId;
         }
 
-        var medication = await _repository.GetMedicationsById(ownerId, user.IsCaregiver, medicamentId) ?? throw new NotFoundException(ResourceErrorMessages.MEDICATION_NOT_FOUND);
+        var filter = new MedicationsFilterById(ownerId, user.IsCaregiver, medicamentId);
+
+        var medication = await _repository.GetMedicationsById(filter) ?? throw new NotFoundException(ResourceErrorMessages.MEDICATION_NOT_FOUND);
 
         var isMedicationOwner = medication.UserId == userId || medication.Dependent?.CaregiverId == userId;
 

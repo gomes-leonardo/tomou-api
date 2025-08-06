@@ -10,6 +10,7 @@ using Tomou.Domain.Repositories.Medications;
 using Tomou.Domain.Repositories.UnitOfWork;
 using Tomou.Domain.Repositories.User;
 using Tomou.Exception.ExceptionsBase;
+using Tomou.Domain.Repositories.Medications.Filters;
 
 public class GetMedicationByIdUseCaseTest
 {
@@ -42,7 +43,7 @@ public class GetMedicationByIdUseCaseTest
         };
 
         medicationsReadOnlyRepositoryMock
-            .Setup(r => r.GetMedicationsById(userId, true, medicationId))
+            .Setup(r => r.GetMedicationsById(It.IsAny<MedicationsFilterById>()))
             .ReturnsAsync(medication);
 
         var expectedResponse = new ResponseMedicationShortJson
@@ -98,7 +99,7 @@ public class GetMedicationByIdUseCaseTest
         };
 
         medicationsReadOnlyRepositoryMock
-            .Setup(r => r.GetMedicationsById(userId, false, medicationId))
+            .Setup(r => r.GetMedicationsById(It.IsAny<MedicationsFilterById>()))
             .ReturnsAsync(medication);
 
         var expectedResponse = new ResponseMedicationShortJson
@@ -148,7 +149,7 @@ public class GetMedicationByIdUseCaseTest
         });
 
         medicationsReadOnlyRepositoryMock
-            .Setup(r => r.GetMedicationsById(userId, true, medicationId))
+            .Setup(r => r.GetMedicationsById(It.IsAny<MedicationsFilterById>()))
             .ReturnsAsync((Tomou.Domain.Entities.Medication?)null);
 
         var useCase = new GetMedicationByIdUseCase(
@@ -244,7 +245,7 @@ public class GetMedicationByIdUseCaseTest
         });
 
         medicationsReadOnlyRepositoryMock
-            .Setup(r => r.GetMedicationsById(userId, false, medicationId))
+            .Setup(r => r.GetMedicationsById(It.IsAny<MedicationsFilterById>()))
             .ReturnsAsync(new Tomou.Domain.Entities.Medication
             {
                 Id = medicationId,

@@ -6,6 +6,7 @@ using Tomou.Domain.Repositories.User;
 using Tomou.Exception.ExceptionsBase;
 using Tomou.Exception;
 using Tomou.Domain.Repositories.Dependent;
+using Tomou.Domain.Repositories.Medications.Filters;
 
 namespace Tomou.Application.UseCases.Medications.Get;
 public class GetMedicationsUseCase : IGetMedicationsUseCase
@@ -57,7 +58,14 @@ public class GetMedicationsUseCase : IGetMedicationsUseCase
             ownerId = userId;
         }
 
-        var result = await _repository.GetMedications(ownerId, user.IsCaregiver, nameFilter, ascending);
+        var filter = new MedicationsFilter(
+            ownerId:    ownerId,
+            isCaregiver: user.IsCaregiver,
+            nameContains: nameFilter,
+            ascending:  ascending
+        );
+
+        var result = await _repository.GetMedicationsByOwner(filter);
 
         return new ResponseMedicationsJson
         {

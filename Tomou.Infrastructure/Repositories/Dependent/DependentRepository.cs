@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tomou.Domain.Repositories.Dependent;
+using Tomou.Domain.Repositories.Dependent.Filters;
 using Tomou.Infrastructure.DataAccess;
 
 namespace Tomou.Infrastructure.Repositories.Dependent;
@@ -17,21 +18,19 @@ internal class DependentRepository : IDependentWriteOnlyRepository, IDependentRe
     }
 
     public async Task<IReadOnlyList<Domain.Entities.Dependent>> GetByCaregiverId(
-        Guid caregiverId,
-        string? nameFilter = null,
-        bool ascending = true)
+       DependentFilter filter)
     {
         var query = _dbContext.Dependents
         .AsNoTracking()
-        .Where(d => d.CaregiverId == caregiverId);
+        .Where(d => d.CaregiverId == filter.CaregiverId);
 
-        if (!string.IsNullOrEmpty(nameFilter))
+        if (!string.IsNullOrEmpty(filter.NameContains))
         {
              query = query.Where(d =>
-             EF.Functions.Like(d.Name, $"%{nameFilter}%"));
+             EF.Functions.Like(d.Name, $"%{filter.NameContains}%"));
         }
 
-        query = ascending
+        query = filter.Ascending
             ? query.OrderBy(d => d.Name)
             : query.OrderByDescending(d => d.Name);
 
@@ -60,6 +59,4 @@ internal class DependentRepository : IDependentWriteOnlyRepository, IDependentRe
             .AsNoTracking().
             FirstOrDefaultAsync(d => d.Id == id);
     }
-
-   
 }

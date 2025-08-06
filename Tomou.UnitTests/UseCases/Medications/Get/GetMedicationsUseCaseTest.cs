@@ -10,6 +10,7 @@ using Tomou.Domain.Repositories.Medications;
 using Tomou.Domain.Repositories.UnitOfWork;
 using Tomou.Domain.Repositories.User;
 using Tomou.Exception.ExceptionsBase;
+using Tomou.Domain.Repositories.Medications.Filters;
 
 public class GetMedicationsUseCaseTest
 {
@@ -50,7 +51,7 @@ public class GetMedicationsUseCaseTest
         };
 
         medicationsReadOnlyRepositoryMock
-            .Setup(r => r.GetMedications(dependentId, true, null, true))
+            .Setup(r => r.GetMedicationsByOwner(It.IsAny<MedicationsFilter>()))
             .ReturnsAsync(medications);
 
         var expectedResponse = new ResponseMedicationsJson
@@ -103,7 +104,7 @@ public class GetMedicationsUseCaseTest
         };
 
         medicationsReadOnlyRepositoryMock
-            .Setup(r => r.GetMedications(userId, false, null, true))
+            .Setup(r => r.GetMedicationsByOwner(It.IsAny<MedicationsFilter>()))
             .ReturnsAsync(medications);
 
         var expectedResponse = new ResponseMedicationsJson

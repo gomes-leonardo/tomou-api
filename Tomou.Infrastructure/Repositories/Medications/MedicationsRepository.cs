@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tomou.Domain.Entities;
 using Tomou.Domain.Repositories.Medications;
+using Tomou.Domain.Repositories.Medications.Filters;
 using Tomou.Infrastructure.DataAccess;
 
 namespace Tomou.Infrastructure.Repositories.Medications;
+
 internal class MedicationsRepository : IMedicationsWriteOnlyRepository, IMedicationsReadOnlyRepository
 {
     private readonly TomouDbContext _dbContext;
@@ -21,7 +23,7 @@ internal class MedicationsRepository : IMedicationsWriteOnlyRepository, IMedicat
     {
         var result = await _dbContext.Medications.FirstOrDefaultAsync(m => m.Id == medicamentId);
 
-        if(result is null)
+        if (result is null)
         {
             return false;
         }
@@ -30,33 +32,33 @@ internal class MedicationsRepository : IMedicationsWriteOnlyRepository, IMedicat
         return true;
     }
 
-    public Task<List<Medication>> GetMedications(Guid id, bool isCaregiver, string? nameFilter = null, bool ascending = true)
+    public Task<List<Medication>> GetMedicationsByOwner(MedicationsFilter filter)
     {
         var query = _dbContext.Medications.AsNoTracking();
 
-        query = isCaregiver
-        ? query.Where(m => m.DependentId == id)
-        : query.Where(m => m.UserId == id);
+        query = filter.IsCaregiver
+        ? query.Where(m => m.DependentId == filter.OwnerId)
+        : query.Where(m => m.UserId == filter.OwnerId);
 
-        if (!string.IsNullOrEmpty(nameFilter))
+        if (!string.IsNullOrEmpty(filter.NameContains))
         {
             query = query.Where(m =>
-                EF.Functions.Like(m.Name, $"%{nameFilter}%"));
+                EF.Functions.Like(m.Name, $"%{filter.NameContains}%"));
         }
 
-        query = ascending ? query.OrderBy(m => m.Name)
+        query = filter.Ascending ? query.OrderBy(m => m.Name)
             : query.OrderByDescending(m => m.Name);
 
         return query.ToListAsync();
 
     }
 
-    public Task<Medication?> GetMedicationsById(Guid id, bool isCaregiver, Guid medicationId)
+    public Task<Medication?> GetMedicationsById(MedicationsFilterById filter)
     {
         var query = _dbContext.Medications.AsNoTracking();
-        query = isCaregiver
-          ? query.Where(m => m.DependentId == id && m.Id == medicationId)
-          : query.Where(m => m.UserId == id && m.Id == medicationId);
+        query = filter.IsCaregiver
+          ? query.Where(m => m.DependentId == filter.Id && m.Id == filter.MedicamentId)
+          : query.Where(m => m.UserId == filter.Id && m.Id == filter.MedicamentId);
         return query.SingleOrDefaultAsync();
     }
 

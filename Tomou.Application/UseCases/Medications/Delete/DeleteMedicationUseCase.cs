@@ -6,6 +6,7 @@ using Tomou.Domain.Repositories.UnitOfWork;
 using Tomou.Domain.Repositories.User;
 using Tomou.Exception.ExceptionsBase;
 using Tomou.Exception;
+using Tomou.Domain.Repositories.Medications.Filters;
 
 namespace Tomou.Application.UseCases.Medications.Delete;
 public class DeleteMedicationUseCase : IDeleteMedicationUseCase
@@ -51,8 +52,12 @@ public class DeleteMedicationUseCase : IDeleteMedicationUseCase
             ownerId = userId;
         }
 
+        var filter = new MedicationsFilterById(
+            ownerId, user.IsCaregiver, medicamentId
+        );
+
         var medication = await _medicationReadOnlyRepository
-            .GetMedicationsById(ownerId, user.IsCaregiver, medicamentId)
+            .GetMedicationsById(filter)
             ?? throw new NotFoundException(ResourceErrorMessages.MEDICATION_NOT_FOUND);
 
         var isOwner = medication.UserId == userId

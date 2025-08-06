@@ -37,12 +37,12 @@ public class RegisterMedicationUseCaseTest
         var dependent = new Tomou.Domain.Entities.Dependent
         {
             CaregiverId = userId,
-            Id = (Guid)dependentId,
+            Id = dependentId!.Value,
             Name = "Miguel Gomes"
         };
 
         dependentReadonlyRepositoryMock
-             .Setup(d => d.GetByIdAsync((Guid)dependentId)).ReturnsAsync(dependent);
+             .Setup(d => d.GetByIdAsync(dependentId!.Value)).ReturnsAsync(dependent);
 
 
         mapperMock
