@@ -7,6 +7,36 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ---
 
+## [1.0.1] - 2024-01-16
+
+### 🐛 Correções de Testes
+
+#### 🐛 Corrigido
+- **Testes Unitários**
+  - Corrigidos construtores incorretos nos testes de DeleteMedicationUseCase
+  - Corrigidos construtores incorretos nos testes de UpdateMedicationUseCase
+  - Corrigidos construtores incorretos nos testes de DeleteDependentUseCase
+  - Corrigida ordem de parâmetros no método Execute do UpdateDependentUseCase
+  - Corrigido uso de builders estáticos nos testes de UpdateDependentUseCase
+  - Corrigidos tipos de parâmetros nos métodos de teste
+  - Corrigidos warnings de conversão de tipos nullable
+  - Corrigida lógica de testes para cenários de cuidadores vs usuários comuns
+
+#### 🔧 Melhorado
+- **Qualidade dos Testes**
+  - Melhorada cobertura de testes para cenários de usuários não-cuidadores
+  - Adicionados testes adicionais para validação de permissões
+  - Melhorada organização e legibilidade dos testes
+  - Corrigidos imports desnecessários
+
+#### ✅ Resultado
+- **109 testes passando** (100% de sucesso)
+- **0 testes falhando**
+- **0 warnings de compilação**
+- **Todos os erros de compilação corrigidos**
+
+---
+
 ## [1.0.0] - 2024-01-15
 
 ### 🎉 Lançamento Inicial
