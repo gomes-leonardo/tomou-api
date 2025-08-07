@@ -5,6 +5,7 @@ using Tomou.Application.UseCases.Dependent.GetAll;
 using Tomou.Application.UseCases.Dependent.GetDependentById;
 using Tomou.Application.UseCases.Dependent.Register;
 using Tomou.Application.UseCases.Dependent.Update;
+using Tomou.Communication.Requests.Dependent.Get;
 using Tomou.Communication.Requests.Dependent.Register;
 using Tomou.Communication.Responses;
 using Tomou.Communication.Responses.Dependent.Get;
@@ -34,11 +35,9 @@ public class DependentController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetDependents(
        [FromServices] IGetDependentsUseCase useCase,
-       [FromQuery] string? name = null,
-       [FromQuery] string order = "asc"
-      )
+       [FromQuery] DependentQuery query)
     {
-        var response = await useCase.Execute(nameFilter: name, ascending: order.Equals("asc", StringComparison.OrdinalIgnoreCase));
+        var response = await useCase.Execute(nameFilter: query.Name, ascending: query.Order.Equals("asc", StringComparison.OrdinalIgnoreCase));
         if (response.Dependents.Count != 0)
         {
             return Ok(response);

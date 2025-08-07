@@ -5,6 +5,7 @@ using Tomou.Application.UseCases.Medications.Get;
 using Tomou.Application.UseCases.Medications.GetById;
 using Tomou.Application.UseCases.Medications.Register;
 using Tomou.Application.UseCases.Medications.Update;
+using Tomou.Communication.Requests.Medications.Get;
 using Tomou.Communication.Requests.Medications.Register;
 using Tomou.Communication.Requests.Medications.Update;
 using Tomou.Communication.Responses;
@@ -34,12 +35,10 @@ public class MedicationsController : ControllerBase
     [ProducesResponseType(typeof(ResponseMedicationShortJson), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get(
         [FromServices] IGetMedicationsUseCase useCase,
-        [FromQuery] Guid? id = null,
-        [FromQuery] string? name = null,
-        [FromQuery] string order = "asc")
+        [FromQuery] MedicationsQuery query)
     {
-        var ascending = order.Equals("asc", StringComparison.OrdinalIgnoreCase);
-        var response = await useCase.Execute(id, name, ascending);
+        var ascending = query.Order.Equals("asc", StringComparison.OrdinalIgnoreCase);
+        var response = await useCase.Execute(query.Id, query.Name, ascending);
 
         return Ok(response);
     }

@@ -7,6 +7,64 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ---
 
+## [1.0.2] - 2024-01-17
+
+### 🔧 Melhorado
+
+#### 🏗️ Arquitetura e Padrões
+- **DTOs de Query Estruturados**
+  - Criado `DependentQuery` para filtros de dependentes
+  - Criado `MedicationsQuery` para filtros de medicamentos
+  - Melhorado `MedicationLogQuery` com parâmetro `id` para cuidadores
+  - Padronização de filtros em todos os controllers GET
+
+#### 🎯 Controllers Atualizados
+- **MedicationLogController**
+  - Implementado método GET completo com filtros avançados
+  - Suporte para cuidadores vs usuários normais
+  - Filtros por status, datas, medicamentos, etc.
+  - Paginação e ordenação
+
+- **DependentController**
+  - Atualizado para usar `DependentQuery` DTO
+  - Filtros por nome e ordenação padronizados
+
+- **MedicationsController**
+  - Atualizado para usar `MedicationsQuery` DTO
+  - Filtros por ID (dependente), nome e ordenação
+
+#### 📋 Estrutura dos DTOs
+```csharp
+// DependentQuery
+- Name (string?) - filtro por nome
+- Order (string) - ordenação (asc/desc)
+
+// MedicationsQuery
+- Id (Guid?) - ID do dependente (para cuidadores)
+- Name (string?) - filtro por nome
+- Order (string) - ordenação (asc/desc)
+
+// MedicationLogQuery
+- Id (Guid?) - ID do dependente (para cuidadores)
+- MedicationId (Guid?) - filtro por medicamento
+- Status (MedicationLogStatus?) - filtro por status
+- ScheduledFrom/To (DateTime?) - filtro por data agendada
+- TakenFrom/To (DateTime?) - filtro por data tomada
+- OnlyOverdue (bool?) - apenas atrasados
+- IsSnoozed (bool?) - apenas adiados
+- NameContains (string?) - filtro por nome
+- Order (string) - ordenação
+- Page/PageSize (int?) - paginação
+```
+
+#### ✅ Benefícios
+- **Consistência**: Todos os controllers seguem o mesmo padrão
+- **Manutenibilidade**: Filtros centralizados em DTOs
+- **Extensibilidade**: Fácil adição de novos filtros
+- **Documentação**: Estrutura clara dos parâmetros de query
+
+---
+
 ## [1.0.1] - 2024-01-16
 
 ### 🐛 Correções de Testes
@@ -276,8 +334,7 @@ Tomou/
 Para contribuir com o projeto:
 
 1. **Crie uma branch** a partir da main
-2. **Implemente suas mudanças**
-3. **Adicione testes** para novas funcionalidades
+2. **Implemente suas mudanças** 3. **Adicione testes** para novas funcionalidades
 4. **Atualize a documentação**
 5. **Crie um Pull Request**
 

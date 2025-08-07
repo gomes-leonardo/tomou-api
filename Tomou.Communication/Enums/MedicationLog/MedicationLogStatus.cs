@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Tomou.Communication.Enums.MedicationLog;
-public enum MedicationLogStatusJson
+public enum MedicationLogStatus
 {
     Pending,
     Taken,

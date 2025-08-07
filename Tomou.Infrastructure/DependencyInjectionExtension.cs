@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tomou.Application.Services.Email;
 using Tomou.Domain.Repositories.Dependent;
+using Tomou.Domain.Repositories.MedicatioLog;
 using Tomou.Domain.Repositories.Medications;
 using Tomou.Domain.Repositories.PasswordToken;
 using Tomou.Domain.Repositories.UnitOfWork;
@@ -44,6 +45,8 @@ public static class DependencyInjectionExtension
 
         services.AddScoped<IMedicationsWriteOnlyRepository, MedicationsRepository>();
         services.AddScoped<IMedicationsReadOnlyRepository, MedicationsRepository>();
+
+        services.AddScoped<IMedicationsLogReadOnlyRepository, MedicationsLogRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)

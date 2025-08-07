@@ -10,4 +10,9 @@
     <Folder Include="Responses\User\ForgotPassword\" />
   </ItemGroup>
 
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+
 </Project>

@@ -9,6 +9,6 @@ public class ResponseMedicationLogShortJson
     public DateTime ScheduledFor { get; set; }
     public DateTime SnoozedUntil { get; set; }
     public DateTime? TakenAt { get; set; }
-    public MedicationLogStatusJson Status { get; set; }
+    public MedicationLogStatus Status { get; set; }
 
 }
