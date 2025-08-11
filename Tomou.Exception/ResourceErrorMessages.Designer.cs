@@ -142,6 +142,15 @@ namespace Tomou.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Período inválido..
+        /// </summary>
+        public static string INVALID_DATE_RANGE {
+            get {
+                return ResourceManager.GetString("INVALID_DATE_RANGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Pelo menos um dia da semana deve ser selecionado..
         /// </summary>
         public static string INVALID_DAY_OF_WEEK {
@@ -165,6 +174,33 @@ namespace Tomou.Exception {
         public static string INVALID_EMAIL {
             get {
                 return ResourceManager.GetString("INVALID_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ordenação inválida..
+        /// </summary>
+        public static string INVALID_ORDER {
+            get {
+                return ResourceManager.GetString("INVALID_ORDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Página inválida..
+        /// </summary>
+        public static string INVALID_PAGE {
+            get {
+                return ResourceManager.GetString("INVALID_PAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tamanho de página inválida..
+        /// </summary>
+        public static string INVALID_PAGE_SIZE {
+            get {
+                return ResourceManager.GetString("INVALID_PAGE_SIZE", resourceCulture);
             }
         }
         
