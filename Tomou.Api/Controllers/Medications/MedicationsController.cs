@@ -50,10 +50,10 @@ public class MedicationsController : ControllerBase
     public async Task <IActionResult> GetById(
         [FromRoute] Guid medicamentId,
         [FromServices] IGetMedicationByIdUseCase useCase,
-        [FromQuery] Guid? id = null)
+        [FromQuery] Guid? ownerId = null)
     {
 
-        var response = await useCase.Execute(id, medicamentId);
+        var response = await useCase.Execute(ownerId, medicamentId);
 
         if (response is not null)
         {
@@ -69,11 +69,11 @@ public class MedicationsController : ControllerBase
     public async Task<IActionResult> Update(
           [FromRoute] Guid medicamentId,
           [FromServices] IUpdateMedicationUseCase useCase,
-          [FromQuery] Guid? id,
+          [FromQuery] Guid? ownerId,
           [FromBody] RequestUpdateMedicationJson request)
     {
        
-        var response = await useCase.Execute(id, medicamentId, request);
+        var response = await useCase.Execute(ownerId, medicamentId, request);
         return Ok(response);
     }
 
@@ -83,10 +83,10 @@ public class MedicationsController : ControllerBase
     public async Task<IActionResult> Delete(
         [FromRoute] Guid medicamentId,
         [FromServices] IDeleteMedicationUseCase useCase,
-        [FromQuery] Guid? id
+        [FromQuery] Guid? ownerId
         )
     {
-        await useCase.Execute(id, medicamentId);
+        await useCase.Execute(ownerId, medicamentId);
         return NoContent();
     }
 }

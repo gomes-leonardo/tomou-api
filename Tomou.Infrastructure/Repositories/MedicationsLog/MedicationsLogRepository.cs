@@ -66,9 +66,17 @@ internal class MedicationsLogRepository : IMedicationsLogReadOnlyRepository
         return await query.ToListAsync();
     }
 
-    public Task<MedicationLog> GetMedicationLogById(Guid id, bool isCaregiver, Guid medicationLogId)
+    public async Task<MedicationLog?> GetMedicationLogById(Guid ownerId, bool isCaregiver, Guid medicationLogId)
     {
-        throw new NotImplementedException();
+        var query = _dbContext.MedicationLogs
+         .AsNoTracking()
+         .Where(l => l.Id == medicationLogId);
+
+        query = isCaregiver
+            ? query.Where(l => l.Medication.DependentId == ownerId)
+            : query.Where(l => l.Medication.UserId == ownerId);
+
+        return await query.SingleOrDefaultAsync();
     }
 }
 

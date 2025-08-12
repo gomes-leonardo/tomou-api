@@ -13,6 +13,7 @@ using Tomou.Application.UseCases.Medications.Register;
 using Tomou.Application.UseCases.Medications.Update;
 using Tomou.Application.UseCases.MedicationsLog.Get;
 using Tomou.Application.UseCases.MedicationsLog.Get.Factories;
+using Tomou.Application.UseCases.MedicationsLog.GetById;
 using Tomou.Application.UseCases.User.ForgotPassword;
 using Tomou.Application.UseCases.User.Login;
 using Tomou.Application.UseCases.User.Register;
@@ -51,6 +52,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IDeleteMedicationUseCase, DeleteMedicationUseCase>();
 
         services.AddScoped<IGetMedicationsLogUseCase,  GetMedicationsLogUseCase>();
+        services.AddScoped<IGetMedicationLogByIdUseCase,  GetMedicationLogByIdUseCase>();
         services.AddScoped<IMedicationLogFilterFactory, MedicationLogFilterFactory>();
 
     }
